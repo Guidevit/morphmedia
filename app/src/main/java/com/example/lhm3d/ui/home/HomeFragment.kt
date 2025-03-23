@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
                 binding.recentModelsRecycler.visibility = View.GONE
             } else {
                 binding.recentModelsRecycler.visibility = View.VISIBLE
-                modelAdapter.submitList(models)
+                modelAdapter.submitList(models.toList())
             }
         }
         

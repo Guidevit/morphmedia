@@ -306,7 +306,7 @@ class AnimationFragment : Fragment() {
             chip.id = View.generateViewId()
             
             // Mark premium animations
-            if (animation.isPremium) {
+            if (!animation.isFreemium) {
                 chip.setChipIconResource(android.R.drawable.btn_star)
             }
             

@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lhm3d.R
-import com.example.lhm3d.data.model.Model3D
-import com.example.lhm3d.data.model.ProcessingStatus
+import com.example.lhm3d.model.Model3D
+import com.example.lhm3d.model.ProcessingStatus
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 /**
@@ -42,20 +43,17 @@ class ModelAdapter(private val onItemClick: (String) -> Unit) :
             titleTextView.text = model.name
             
             // Set status text and color based on processing status
-            val statusText = when (model.status) {
+            val statusText = when (model.processingStatus) {
                 ProcessingStatus.PENDING -> "Pending..."
-                ProcessingStatus.UPLOADING -> "Uploading..."
-                ProcessingStatus.QUEUED -> "Queued for processing..."
                 ProcessingStatus.PROCESSING -> "Processing..."
                 ProcessingStatus.COMPLETED -> "Ready"
                 ProcessingStatus.FAILED -> "Failed"
-                ProcessingStatus.CANCELLED -> "Cancelled"
             }
             statusTextView.text = statusText
             
             // Format the date
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-            dateTextView.text = dateFormat.format(model.creationDate)
+            dateTextView.text = dateFormat.format(Date(model.createdAt))
             
             // Load thumbnail image
             if (model.thumbnailUrl.isNotEmpty()) {

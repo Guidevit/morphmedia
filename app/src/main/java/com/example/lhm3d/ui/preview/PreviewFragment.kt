@@ -29,7 +29,7 @@ class PreviewFragment : Fragment() {
     
     private val viewModel: PreviewViewModel by viewModels()
     // Use arguments bundle instead of safeargs
-    private val arguments: Bundle by lazy { requireArguments() }
+    private val fragmentArgs: Bundle by lazy { requireArguments() }
     
     private var renderer: GLSurfaceRenderer? = null
 
@@ -76,14 +76,14 @@ class PreviewFragment : Fragment() {
      * Process the fragment arguments.
      */
     private fun processArgs() {
-        val imageUriString = arguments.getString("imageUri")
+        val imageUriString = fragmentArgs.getString("imageUri")
         if (imageUriString != null) {
             // We have an image URI to process
             showProcessingUI()
             viewModel.processImage(Uri.parse(imageUriString))
         }
         
-        val modelId = arguments.getString("modelId")
+        val modelId = fragmentArgs.getString("modelId")
         if (modelId != null) {
             // We have a model ID to load
             showProcessingUI()

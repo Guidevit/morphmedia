@@ -55,7 +55,11 @@ class UserViewModel : ViewModel() {
         _isLoading.value = true
         viewModelScope.launch {
             val result = firebaseService.signIn(email, password)
-            _authState.value = result
+            if (result.isSuccess) {
+                _authState.value = Result.success(Unit)
+            } else {
+                _authState.value = Result.failure(result.exceptionOrNull() ?: Exception("Sign in failed"))
+            }
             _isLoading.value = false
         }
     }
@@ -67,7 +71,11 @@ class UserViewModel : ViewModel() {
         _isLoading.value = true
         viewModelScope.launch {
             val result = firebaseService.signUp(email, password, displayName)
-            _authState.value = result
+            if (result.isSuccess) {
+                _authState.value = Result.success(Unit)
+            } else {
+                _authState.value = Result.failure(result.exceptionOrNull() ?: Exception("Sign up failed"))
+            }
             _isLoading.value = false
         }
     }
@@ -124,11 +132,9 @@ class UserViewModel : ViewModel() {
      */
     fun updateSubscription(subscriptionType: SubscriptionType) {
         viewModelScope.launch {
-            val result = firebaseService.updateSubscription(subscriptionType)
-            if (result.isSuccess) {
-                // Reload user data to get updated subscription
-                loadUserData()
-            }
+            firebaseService.updateSubscription(subscriptionType)
+            // Reload user data to get updated subscription
+            loadUserData()
         }
     }
 

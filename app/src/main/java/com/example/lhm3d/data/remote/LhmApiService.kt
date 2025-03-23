@@ -1,8 +1,8 @@
 package com.example.lhm3d.data.remote
 
 import android.net.Uri
-import com.example.lhm3d.data.model.Model3D
-import com.example.lhm3d.data.model.ProcessingStatus
+import com.example.lhm3d.model.Model3D
+import com.example.lhm3d.model.ProcessingStatus
 import com.example.lhm3d.data.repository.FirebaseManager
 import com.google.firebase.functions.FirebaseFunctions
 import kotlinx.coroutines.tasks.await
@@ -96,7 +96,7 @@ class LhmApiService(private val firebaseManager: FirebaseManager) {
     suspend fun checkModelStatus(modelId: String): ProcessingStatus {
         return try {
             val model = firebaseManager.getModelById(modelId)
-            model?.status ?: ProcessingStatus.PENDING
+            model?.processingStatus ?: ProcessingStatus.PENDING
         } catch (e: Exception) {
             ProcessingStatus.FAILED
         }

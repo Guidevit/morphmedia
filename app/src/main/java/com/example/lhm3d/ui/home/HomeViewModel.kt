@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lhm3d.data.model.Model3D
+import com.example.lhm3d.model.Model3D
 import com.example.lhm3d.data.repository.ModelRepository
 import kotlinx.coroutines.launch
 

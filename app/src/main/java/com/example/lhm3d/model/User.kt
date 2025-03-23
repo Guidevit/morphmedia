@@ -1,5 +1,7 @@
 package com.example.lhm3d.model
 
+import com.example.lhm3d.model.ModelTier
+
 /**
  * Represents a user in the LHM 3D Creator app.
  */
@@ -32,11 +34,11 @@ enum class SubscriptionType {
     /**
      * Convert to ModelTier for rendering quality settings
      */
-    fun toModelTier(): com.example.lhm3d.data.model.ModelTier {
+    fun toModelTier(): ModelTier {
         return if (isPremium()) {
-            com.example.lhm3d.data.model.ModelTier.PREMIUM
+            ModelTier.PREMIUM
         } else {
-            com.example.lhm3d.data.model.ModelTier.FREE
+            ModelTier.FREE
         }
     }
 }

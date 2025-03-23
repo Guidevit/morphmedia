@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.example.lhm3d.R
-import com.example.lhm3d.data.model.Model3D
-import com.example.lhm3d.data.model.ProcessingStatus
+import com.example.lhm3d.model.Model3D
+import com.example.lhm3d.model.ProcessingStatus
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -123,9 +123,9 @@ class FirebaseManager private constructor(private val context: Context) {
     
     suspend fun getPublicModels(): List<Model3D> {
         return modelsCollection
-            .whereEqualTo("isPublic", true)
-            .whereEqualTo("status", ProcessingStatus.COMPLETED)
-            .orderBy("creationDate", Query.Direction.DESCENDING)
+            .whereEqualTo("isPremium", false)
+            .whereEqualTo("processingStatus", ProcessingStatus.COMPLETED)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
             .limit(50)
             .get()
             .await()

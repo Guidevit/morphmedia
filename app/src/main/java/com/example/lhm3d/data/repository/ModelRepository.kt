@@ -2,9 +2,9 @@ package com.example.lhm3d.data.repository
 
 import android.content.Context
 import android.net.Uri
-import com.example.lhm3d.data.model.Model3D
-import com.example.lhm3d.data.model.ProcessingStatus
-import com.example.lhm3d.data.model.ModelTier
+import com.example.lhm3d.model.Model3D
+import com.example.lhm3d.model.ProcessingStatus
+import com.example.lhm3d.model.ModelTier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -57,12 +57,11 @@ class ModelRepository(private val context: Context) {
         val model = Model3D(
             userId = currentUser?.uid ?: "",
             name = name,
-            description = description,
-            creationDate = Date(),
-            lastModified = Date(),
-            status = ProcessingStatus.UPLOADING,
-            isPublic = isPublic,
-            modelTier = modelTier
+            createdAt = System.currentTimeMillis(),
+            updatedAt = System.currentTimeMillis(),
+            processingStatus = ProcessingStatus.PENDING,
+            isPremium = modelTier == ModelTier.PREMIUM,
+            metadata = mapOf("description" to description)
         )
         
         // Save model to get ID
@@ -75,7 +74,7 @@ class ModelRepository(private val context: Context) {
         val updatedModel = model.copy(
             id = modelId,
             sourceImageUrl = imageUrl,
-            status = ProcessingStatus.QUEUED
+            processingStatus = ProcessingStatus.PROCESSING
         )
         firebaseManager.saveModel(updatedModel)
         
@@ -103,8 +102,8 @@ class ModelRepository(private val context: Context) {
             val model = firebaseManager.getModelById(modelId)
             if (model != null) {
                 val updatedModel = model.copy(
-                    status = status,
-                    lastModified = Date()
+                    processingStatus = status,
+                    updatedAt = System.currentTimeMillis()
                 )
                 firebaseManager.saveModel(updatedModel)
                 emit(true)
@@ -121,7 +120,7 @@ class ModelRepository(private val context: Context) {
      */
     fun updateModel(model: Model3D): Flow<Boolean> = flow {
         try {
-            val updatedModel = model.copy(lastModified = Date())
+            val updatedModel = model.copy(updatedAt = System.currentTimeMillis())
             firebaseManager.saveModel(updatedModel)
             emit(true)
         } catch (e: Exception) {
@@ -133,6 +132,6 @@ class ModelRepository(private val context: Context) {
      * Get most recent models, limited by count
      */
     suspend fun getRecentModels(limit: Int): List<Model3D> {
-        return firebaseManager.getUserModels().sortedByDescending { it.creationDate }.take(limit)
+        return firebaseManager.getUserModels().sortedByDescending { it.createdAt }.take(limit)
     }
 }

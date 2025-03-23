@@ -37,33 +37,44 @@ class PreviewViewModel(application: Application) : AndroidViewModel(application)
         _processingState.value = ProcessingStatus.PROCESSING
         
         viewModelScope.launch {
-            // Generate a unique name for the image
-            val timestamp = System.currentTimeMillis()
-            val imageName = "image_${timestamp}.jpg"
-            
-            // Upload the image to Firebase
-            val uploadResult = firebaseService.uploadSourceImage(imageUri, imageName)
-            
-            if (uploadResult.isSuccess) {
-                val model = uploadResult.getOrThrow()
+            try {
+                // Generate a unique ID for the model
+                val modelId = UUID.randomUUID().toString()
                 
-                // Process the image
-                val processResult = modelService.processImage(model)
+                // Upload the image to Firebase
+                val uploadResult = firebaseService.uploadSourceImage(modelId, imageUri)
                 
-                if (processResult.isSuccess) {
-                    val processedModel = processResult.getOrThrow()
-                    _currentModel.value = Result.success(processedModel)
-                    _processingState.value = ProcessingStatus.COMPLETED
+                if (uploadResult.isSuccess) {
+                    val downloadUrl = uploadResult.getOrThrow()
+                    
+                    // Create a basic model with the source image URL
+                    val model = Model3D(
+                        id = modelId,
+                        sourceImageUrl = downloadUrl,
+                        processingStatus = ProcessingStatus.PROCESSING
+                    )
+                    
+                    // Process the image
+                    val processResult = modelService.processImage(model)
+                    
+                    if (processResult.isSuccess) {
+                        val processedModel = processResult.getOrThrow()
+                        _currentModel.value = Result.success(processedModel)
+                        _processingState.value = ProcessingStatus.COMPLETED
+                    } else {
+                        _currentModel.value = Result.failure(
+                            processResult.exceptionOrNull() ?: Exception("Processing failed")
+                        )
+                        _processingState.value = ProcessingStatus.FAILED
+                    }
                 } else {
                     _currentModel.value = Result.failure(
-                        processResult.exceptionOrNull() ?: Exception("Processing failed")
+                        uploadResult.exceptionOrNull() ?: Exception("Upload failed")
                     )
                     _processingState.value = ProcessingStatus.FAILED
                 }
-            } else {
-                _currentModel.value = Result.failure(
-                    uploadResult.exceptionOrNull() ?: Exception("Upload failed")
-                )
+            } catch (e: Exception) {
+                _currentModel.value = Result.failure(e)
                 _processingState.value = ProcessingStatus.FAILED
             }
         }
