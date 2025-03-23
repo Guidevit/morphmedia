@@ -7,22 +7,18 @@
         android:title="@string/nav_home" />
 
     <item
-        android:id="@+id/navigation_gallery"
-        android:icon="@android:drawable/ic_menu_gallery"
-        android:title="@string/nav_gallery" />
-
-    <item
         android:id="@+id/navigation_create"
         android:icon="@android:drawable/ic_menu_camera"
         android:title="@string/nav_create" />
 
     <item
-        android:id="@+id/navigation_models"
-        android:icon="@android:drawable/ic_menu_slideshow"
-        android:title="@string/nav_models" />
+        android:id="@+id/navigation_gallery"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="@string/nav_gallery" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="@string/nav_profile" />
+
 </menu>

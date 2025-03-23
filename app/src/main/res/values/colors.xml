@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#FF6200EE</color>
-    <color name="primary_variant">#FF3700B3</color>
-    <color name="secondary">#FF03DAC5</color>
-    <color name="secondary_variant">#FF018786</color>
+    <!-- Primary brand colors -->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    
+    <!-- Aliases for layout references -->
+    <color name="primary">@color/colorPrimary</color>
+    <color name="primary_dark">@color/colorPrimaryDark</color>
+    <color name="accent">@color/colorAccent</color>
+    
+    <!-- Material colors -->
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#FFFAFAFA</color>
-    <color name="surface">#FFFFFFFF</color>
-    <color name="error">#FFB00020</color>
-    <color name="on_primary">#FFFFFFFF</color>
-    <color name="on_secondary">#FF000000</color>
-    <color name="on_background">#FF000000</color>
-    <color name="on_surface">#FF000000</color>
-    <color name="on_error">#FFFFFFFF</color>
+    
+    <!-- UI components colors -->
+    <color name="statusBar">@color/colorPrimaryDark</color>
+    <color name="toolbarColor">@color/colorPrimary</color>
+    <color name="navigationBarColor">@color/colorPrimary</color>
+    <color name="background">#FAFAFA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="error">#B00020</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="onSecondary">#000000</color>
+    <color name="onBackground">#000000</color>
+    <color name="onSurface">#000000</color>
+    <color name="onError">#FFFFFF</color>
+    <color name="textColorPrimary">#DE000000</color>
+    <color name="textColorSecondary">#99000000</color>
+    <color name="textColorDisabled">#61000000</color>
+    <color name="divider">#1F000000</color>
+    <color name="iconTint">#8A000000</color>
+    <color name="errorColor">#B00020</color>
+    <color name="successColor">#4CAF50</color>
+    <color name="warningColor">#FFA000</color>
+    <color name="infoColor">#2196F3</color>
+    
+    <!-- Additional color aliases needed by styles -->
+    <color name="textPrimary">@color/textColorPrimary</color>
+    <color name="textSecondary">@color/textColorSecondary</color>
 </resources>

@@ -4,9 +4,8 @@ package com.example.lhm3d.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,66 +25,61 @@ public final class ActivityLoginBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final MaterialButton buttonGoogleSignIn;
+  public final LinearLayout dividerContainer;
 
   @NonNull
-  public final Button buttonLogin;
+  public final TextInputEditText email;
 
   @NonNull
-  public final Button buttonSignUp;
+  public final TextInputLayout emailLayout;
 
   @NonNull
-  public final TextInputEditText editTextEmail;
+  public final TextView forgotPassword;
 
   @NonNull
-  public final TextInputEditText editTextPassword;
+  public final MaterialButton googleSignIn;
 
   @NonNull
-  public final ImageView imageViewLogo;
+  public final MaterialButton loginButton;
 
   @NonNull
-  public final ProgressBar progressBar;
+  public final ImageView logo;
 
   @NonNull
-  public final TextInputLayout textInputLayoutEmail;
+  public final TextInputEditText password;
 
   @NonNull
-  public final TextInputLayout textInputLayoutPassword;
+  public final TextInputLayout passwordLayout;
 
   @NonNull
-  public final TextView textViewForgotPassword;
+  public final MaterialButton signupButton;
 
   @NonNull
-  public final TextView textViewOr;
+  public final TextView subtitle;
 
   @NonNull
-  public final TextView textViewSubtitle;
-
-  @NonNull
-  public final TextView textViewTitle;
+  public final TextView title;
 
   private ActivityLoginBinding(@NonNull ConstraintLayout rootView,
-      @NonNull MaterialButton buttonGoogleSignIn, @NonNull Button buttonLogin,
-      @NonNull Button buttonSignUp, @NonNull TextInputEditText editTextEmail,
-      @NonNull TextInputEditText editTextPassword, @NonNull ImageView imageViewLogo,
-      @NonNull ProgressBar progressBar, @NonNull TextInputLayout textInputLayoutEmail,
-      @NonNull TextInputLayout textInputLayoutPassword, @NonNull TextView textViewForgotPassword,
-      @NonNull TextView textViewOr, @NonNull TextView textViewSubtitle,
-      @NonNull TextView textViewTitle) {
+      @NonNull LinearLayout dividerContainer, @NonNull TextInputEditText email,
+      @NonNull TextInputLayout emailLayout, @NonNull TextView forgotPassword,
+      @NonNull MaterialButton googleSignIn, @NonNull MaterialButton loginButton,
+      @NonNull ImageView logo, @NonNull TextInputEditText password,
+      @NonNull TextInputLayout passwordLayout, @NonNull MaterialButton signupButton,
+      @NonNull TextView subtitle, @NonNull TextView title) {
     this.rootView = rootView;
-    this.buttonGoogleSignIn = buttonGoogleSignIn;
-    this.buttonLogin = buttonLogin;
-    this.buttonSignUp = buttonSignUp;
-    this.editTextEmail = editTextEmail;
-    this.editTextPassword = editTextPassword;
-    this.imageViewLogo = imageViewLogo;
-    this.progressBar = progressBar;
-    this.textInputLayoutEmail = textInputLayoutEmail;
-    this.textInputLayoutPassword = textInputLayoutPassword;
-    this.textViewForgotPassword = textViewForgotPassword;
-    this.textViewOr = textViewOr;
-    this.textViewSubtitle = textViewSubtitle;
-    this.textViewTitle = textViewTitle;
+    this.dividerContainer = dividerContainer;
+    this.email = email;
+    this.emailLayout = emailLayout;
+    this.forgotPassword = forgotPassword;
+    this.googleSignIn = googleSignIn;
+    this.loginButton = loginButton;
+    this.logo = logo;
+    this.password = password;
+    this.passwordLayout = passwordLayout;
+    this.signupButton = signupButton;
+    this.subtitle = subtitle;
+    this.title = title;
   }
 
   @Override
@@ -115,88 +109,81 @@ public final class ActivityLoginBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.buttonGoogleSignIn;
-      MaterialButton buttonGoogleSignIn = ViewBindings.findChildViewById(rootView, id);
-      if (buttonGoogleSignIn == null) {
+      id = R.id.divider_container;
+      LinearLayout dividerContainer = ViewBindings.findChildViewById(rootView, id);
+      if (dividerContainer == null) {
         break missingId;
       }
 
-      id = R.id.buttonLogin;
-      Button buttonLogin = ViewBindings.findChildViewById(rootView, id);
-      if (buttonLogin == null) {
+      id = R.id.email;
+      TextInputEditText email = ViewBindings.findChildViewById(rootView, id);
+      if (email == null) {
         break missingId;
       }
 
-      id = R.id.buttonSignUp;
-      Button buttonSignUp = ViewBindings.findChildViewById(rootView, id);
-      if (buttonSignUp == null) {
+      id = R.id.email_layout;
+      TextInputLayout emailLayout = ViewBindings.findChildViewById(rootView, id);
+      if (emailLayout == null) {
         break missingId;
       }
 
-      id = R.id.editTextEmail;
-      TextInputEditText editTextEmail = ViewBindings.findChildViewById(rootView, id);
-      if (editTextEmail == null) {
+      id = R.id.forgot_password;
+      TextView forgotPassword = ViewBindings.findChildViewById(rootView, id);
+      if (forgotPassword == null) {
         break missingId;
       }
 
-      id = R.id.editTextPassword;
-      TextInputEditText editTextPassword = ViewBindings.findChildViewById(rootView, id);
-      if (editTextPassword == null) {
+      id = R.id.google_sign_in;
+      MaterialButton googleSignIn = ViewBindings.findChildViewById(rootView, id);
+      if (googleSignIn == null) {
         break missingId;
       }
 
-      id = R.id.imageViewLogo;
-      ImageView imageViewLogo = ViewBindings.findChildViewById(rootView, id);
-      if (imageViewLogo == null) {
+      id = R.id.login_button;
+      MaterialButton loginButton = ViewBindings.findChildViewById(rootView, id);
+      if (loginButton == null) {
         break missingId;
       }
 
-      id = R.id.progressBar;
-      ProgressBar progressBar = ViewBindings.findChildViewById(rootView, id);
-      if (progressBar == null) {
+      id = R.id.logo;
+      ImageView logo = ViewBindings.findChildViewById(rootView, id);
+      if (logo == null) {
         break missingId;
       }
 
-      id = R.id.textInputLayoutEmail;
-      TextInputLayout textInputLayoutEmail = ViewBindings.findChildViewById(rootView, id);
-      if (textInputLayoutEmail == null) {
+      id = R.id.password;
+      TextInputEditText password = ViewBindings.findChildViewById(rootView, id);
+      if (password == null) {
         break missingId;
       }
 
-      id = R.id.textInputLayoutPassword;
-      TextInputLayout textInputLayoutPassword = ViewBindings.findChildViewById(rootView, id);
-      if (textInputLayoutPassword == null) {
+      id = R.id.password_layout;
+      TextInputLayout passwordLayout = ViewBindings.findChildViewById(rootView, id);
+      if (passwordLayout == null) {
         break missingId;
       }
 
-      id = R.id.textViewForgotPassword;
-      TextView textViewForgotPassword = ViewBindings.findChildViewById(rootView, id);
-      if (textViewForgotPassword == null) {
+      id = R.id.signup_button;
+      MaterialButton signupButton = ViewBindings.findChildViewById(rootView, id);
+      if (signupButton == null) {
         break missingId;
       }
 
-      id = R.id.textViewOr;
-      TextView textViewOr = ViewBindings.findChildViewById(rootView, id);
-      if (textViewOr == null) {
+      id = R.id.subtitle;
+      TextView subtitle = ViewBindings.findChildViewById(rootView, id);
+      if (subtitle == null) {
         break missingId;
       }
 
-      id = R.id.textViewSubtitle;
-      TextView textViewSubtitle = ViewBindings.findChildViewById(rootView, id);
-      if (textViewSubtitle == null) {
+      id = R.id.title;
+      TextView title = ViewBindings.findChildViewById(rootView, id);
+      if (title == null) {
         break missingId;
       }
 
-      id = R.id.textViewTitle;
-      TextView textViewTitle = ViewBindings.findChildViewById(rootView, id);
-      if (textViewTitle == null) {
-        break missingId;
-      }
-
-      return new ActivityLoginBinding((ConstraintLayout) rootView, buttonGoogleSignIn, buttonLogin,
-          buttonSignUp, editTextEmail, editTextPassword, imageViewLogo, progressBar,
-          textInputLayoutEmail, textInputLayoutPassword, textViewForgotPassword, textViewOr,
-          textViewSubtitle, textViewTitle);
+      return new ActivityLoginBinding((ConstraintLayout) rootView, dividerContainer, email,
+          emailLayout, forgotPassword, googleSignIn, loginButton, logo, password, passwordLayout,
+          signupButton, subtitle, title);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -7,10 +7,10 @@ import kotlin.Int
 import kotlin.String
 
 public class GalleryFragmentDirections private constructor() {
-  private data class ActionGalleryToModelDetails(
+  private data class ActionGalleryToAnimation(
     public val modelId: String,
   ) : NavDirections {
-    public override val actionId: Int = R.id.action_gallery_to_model_details
+    public override val actionId: Int = R.id.action_gallery_to_animation
 
     public override val arguments: Bundle
       get() {
@@ -21,7 +21,7 @@ public class GalleryFragmentDirections private constructor() {
   }
 
   public companion object {
-    public fun actionGalleryToModelDetails(modelId: String): NavDirections =
-        ActionGalleryToModelDetails(modelId)
+    public fun actionGalleryToAnimation(modelId: String): NavDirections =
+        ActionGalleryToAnimation(modelId)
   }
 }

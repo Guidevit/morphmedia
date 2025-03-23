@@ -1,16 +1,17 @@
 package com.example.lhm3d.ui.home
 
 import android.os.Bundle
+import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavDirections
 import com.example.lhm3d.R
 import kotlin.Int
 import kotlin.String
 
 public class HomeFragmentDirections private constructor() {
-  private data class ActionHomeToModelDetails(
+  private data class ActionHomeToAnimation(
     public val modelId: String,
   ) : NavDirections {
-    public override val actionId: Int = R.id.action_home_to_model_details
+    public override val actionId: Int = R.id.action_home_to_animation
 
     public override val arguments: Bundle
       get() {
@@ -21,7 +22,10 @@ public class HomeFragmentDirections private constructor() {
   }
 
   public companion object {
-    public fun actionHomeToModelDetails(modelId: String): NavDirections =
-        ActionHomeToModelDetails(modelId)
+    public fun actionHomeToCreate(): NavDirections =
+        ActionOnlyNavDirections(R.id.action_home_to_create)
+
+    public fun actionHomeToAnimation(modelId: String): NavDirections =
+        ActionHomeToAnimation(modelId)
   }
 }

@@ -4,7 +4,7 @@ package com.example.lhm3d.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.lhm3d.R;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -24,34 +24,42 @@ public final class FragmentGalleryBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final MaterialButton buttonFilter;
+  public final TextView emptyText;
 
   @NonNull
-  public final MaterialButton buttonSort;
+  public final Chip filterAll;
 
   @NonNull
-  public final LinearLayout filterControls;
+  public final Chip filterFavorites;
 
   @NonNull
-  public final TabLayout galleryTabs;
+  public final ChipGroup filterGroup;
 
   @NonNull
-  public final RecyclerView recyclerModels;
+  public final Chip filterRecent;
 
   @NonNull
-  public final TextView textEmptyState;
+  public final ProgressBar loadingIndicator;
 
-  private FragmentGalleryBinding(@NonNull ConstraintLayout rootView,
-      @NonNull MaterialButton buttonFilter, @NonNull MaterialButton buttonSort,
-      @NonNull LinearLayout filterControls, @NonNull TabLayout galleryTabs,
-      @NonNull RecyclerView recyclerModels, @NonNull TextView textEmptyState) {
+  @NonNull
+  public final RecyclerView modelsRecycler;
+
+  @NonNull
+  public final TextView title;
+
+  private FragmentGalleryBinding(@NonNull ConstraintLayout rootView, @NonNull TextView emptyText,
+      @NonNull Chip filterAll, @NonNull Chip filterFavorites, @NonNull ChipGroup filterGroup,
+      @NonNull Chip filterRecent, @NonNull ProgressBar loadingIndicator,
+      @NonNull RecyclerView modelsRecycler, @NonNull TextView title) {
     this.rootView = rootView;
-    this.buttonFilter = buttonFilter;
-    this.buttonSort = buttonSort;
-    this.filterControls = filterControls;
-    this.galleryTabs = galleryTabs;
-    this.recyclerModels = recyclerModels;
-    this.textEmptyState = textEmptyState;
+    this.emptyText = emptyText;
+    this.filterAll = filterAll;
+    this.filterFavorites = filterFavorites;
+    this.filterGroup = filterGroup;
+    this.filterRecent = filterRecent;
+    this.loadingIndicator = loadingIndicator;
+    this.modelsRecycler = modelsRecycler;
+    this.title = title;
   }
 
   @Override
@@ -81,44 +89,56 @@ public final class FragmentGalleryBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.button_filter;
-      MaterialButton buttonFilter = ViewBindings.findChildViewById(rootView, id);
-      if (buttonFilter == null) {
+      id = R.id.empty_text;
+      TextView emptyText = ViewBindings.findChildViewById(rootView, id);
+      if (emptyText == null) {
         break missingId;
       }
 
-      id = R.id.button_sort;
-      MaterialButton buttonSort = ViewBindings.findChildViewById(rootView, id);
-      if (buttonSort == null) {
+      id = R.id.filter_all;
+      Chip filterAll = ViewBindings.findChildViewById(rootView, id);
+      if (filterAll == null) {
         break missingId;
       }
 
-      id = R.id.filter_controls;
-      LinearLayout filterControls = ViewBindings.findChildViewById(rootView, id);
-      if (filterControls == null) {
+      id = R.id.filter_favorites;
+      Chip filterFavorites = ViewBindings.findChildViewById(rootView, id);
+      if (filterFavorites == null) {
         break missingId;
       }
 
-      id = R.id.gallery_tabs;
-      TabLayout galleryTabs = ViewBindings.findChildViewById(rootView, id);
-      if (galleryTabs == null) {
+      id = R.id.filter_group;
+      ChipGroup filterGroup = ViewBindings.findChildViewById(rootView, id);
+      if (filterGroup == null) {
         break missingId;
       }
 
-      id = R.id.recycler_models;
-      RecyclerView recyclerModels = ViewBindings.findChildViewById(rootView, id);
-      if (recyclerModels == null) {
+      id = R.id.filter_recent;
+      Chip filterRecent = ViewBindings.findChildViewById(rootView, id);
+      if (filterRecent == null) {
         break missingId;
       }
 
-      id = R.id.text_empty_state;
-      TextView textEmptyState = ViewBindings.findChildViewById(rootView, id);
-      if (textEmptyState == null) {
+      id = R.id.loading_indicator;
+      ProgressBar loadingIndicator = ViewBindings.findChildViewById(rootView, id);
+      if (loadingIndicator == null) {
         break missingId;
       }
 
-      return new FragmentGalleryBinding((ConstraintLayout) rootView, buttonFilter, buttonSort,
-          filterControls, galleryTabs, recyclerModels, textEmptyState);
+      id = R.id.models_recycler;
+      RecyclerView modelsRecycler = ViewBindings.findChildViewById(rootView, id);
+      if (modelsRecycler == null) {
+        break missingId;
+      }
+
+      id = R.id.title;
+      TextView title = ViewBindings.findChildViewById(rootView, id);
+      if (title == null) {
+        break missingId;
+      }
+
+      return new FragmentGalleryBinding((ConstraintLayout) rootView, emptyText, filterAll,
+          filterFavorites, filterGroup, filterRecent, loadingIndicator, modelsRecycler, title);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

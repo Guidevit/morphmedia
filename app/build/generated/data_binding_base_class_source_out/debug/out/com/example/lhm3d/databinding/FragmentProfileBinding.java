@@ -9,76 +9,89 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.lhm3d.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class FragmentProfileBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final NestedScrollView rootView;
 
   @NonNull
-  public final MaterialButton buttonLoginLogout;
+  public final TextView helpButton;
 
   @NonNull
-  public final CardView cardSettings;
+  public final TextView logoutButton;
 
   @NonNull
-  public final CardView cardUserInfo;
+  public final CardView profileCard;
 
   @NonNull
-  public final ImageView imageProfile;
+  public final TextView profileEmail;
 
   @NonNull
-  public final TextView settingAbout;
+  public final ImageView profileImage;
 
   @NonNull
-  public final TextView settingAccount;
+  public final TextView profileName;
 
   @NonNull
-  public final TextView settingNotifications;
+  public final TextView settingsButton;
 
   @NonNull
-  public final TextView settingSubscription;
+  public final CardView settingsCard;
 
   @NonNull
-  public final TextView textUserEmail;
+  public final CardView subscriptionCard;
 
   @NonNull
-  public final TextView textUserName;
+  public final Chip subscriptionChip;
 
   @NonNull
-  public final TextView textUserStatus;
+  public final TextView subscriptionDetails;
 
-  private FragmentProfileBinding(@NonNull ConstraintLayout rootView,
-      @NonNull MaterialButton buttonLoginLogout, @NonNull CardView cardSettings,
-      @NonNull CardView cardUserInfo, @NonNull ImageView imageProfile,
-      @NonNull TextView settingAbout, @NonNull TextView settingAccount,
-      @NonNull TextView settingNotifications, @NonNull TextView settingSubscription,
-      @NonNull TextView textUserEmail, @NonNull TextView textUserName,
-      @NonNull TextView textUserStatus) {
+  @NonNull
+  public final TextView subscriptionTitle;
+
+  @NonNull
+  public final TextView title;
+
+  @NonNull
+  public final MaterialButton upgradeButton;
+
+  private FragmentProfileBinding(@NonNull NestedScrollView rootView, @NonNull TextView helpButton,
+      @NonNull TextView logoutButton, @NonNull CardView profileCard, @NonNull TextView profileEmail,
+      @NonNull ImageView profileImage, @NonNull TextView profileName,
+      @NonNull TextView settingsButton, @NonNull CardView settingsCard,
+      @NonNull CardView subscriptionCard, @NonNull Chip subscriptionChip,
+      @NonNull TextView subscriptionDetails, @NonNull TextView subscriptionTitle,
+      @NonNull TextView title, @NonNull MaterialButton upgradeButton) {
     this.rootView = rootView;
-    this.buttonLoginLogout = buttonLoginLogout;
-    this.cardSettings = cardSettings;
-    this.cardUserInfo = cardUserInfo;
-    this.imageProfile = imageProfile;
-    this.settingAbout = settingAbout;
-    this.settingAccount = settingAccount;
-    this.settingNotifications = settingNotifications;
-    this.settingSubscription = settingSubscription;
-    this.textUserEmail = textUserEmail;
-    this.textUserName = textUserName;
-    this.textUserStatus = textUserStatus;
+    this.helpButton = helpButton;
+    this.logoutButton = logoutButton;
+    this.profileCard = profileCard;
+    this.profileEmail = profileEmail;
+    this.profileImage = profileImage;
+    this.profileName = profileName;
+    this.settingsButton = settingsButton;
+    this.settingsCard = settingsCard;
+    this.subscriptionCard = subscriptionCard;
+    this.subscriptionChip = subscriptionChip;
+    this.subscriptionDetails = subscriptionDetails;
+    this.subscriptionTitle = subscriptionTitle;
+    this.title = title;
+    this.upgradeButton = upgradeButton;
   }
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public NestedScrollView getRoot() {
     return rootView;
   }
 
@@ -103,75 +116,94 @@ public final class FragmentProfileBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.button_login_logout;
-      MaterialButton buttonLoginLogout = ViewBindings.findChildViewById(rootView, id);
-      if (buttonLoginLogout == null) {
+      id = R.id.help_button;
+      TextView helpButton = ViewBindings.findChildViewById(rootView, id);
+      if (helpButton == null) {
         break missingId;
       }
 
-      id = R.id.card_settings;
-      CardView cardSettings = ViewBindings.findChildViewById(rootView, id);
-      if (cardSettings == null) {
+      id = R.id.logout_button;
+      TextView logoutButton = ViewBindings.findChildViewById(rootView, id);
+      if (logoutButton == null) {
         break missingId;
       }
 
-      id = R.id.card_user_info;
-      CardView cardUserInfo = ViewBindings.findChildViewById(rootView, id);
-      if (cardUserInfo == null) {
+      id = R.id.profile_card;
+      CardView profileCard = ViewBindings.findChildViewById(rootView, id);
+      if (profileCard == null) {
         break missingId;
       }
 
-      id = R.id.image_profile;
-      ImageView imageProfile = ViewBindings.findChildViewById(rootView, id);
-      if (imageProfile == null) {
+      id = R.id.profile_email;
+      TextView profileEmail = ViewBindings.findChildViewById(rootView, id);
+      if (profileEmail == null) {
         break missingId;
       }
 
-      id = R.id.setting_about;
-      TextView settingAbout = ViewBindings.findChildViewById(rootView, id);
-      if (settingAbout == null) {
+      id = R.id.profile_image;
+      ImageView profileImage = ViewBindings.findChildViewById(rootView, id);
+      if (profileImage == null) {
         break missingId;
       }
 
-      id = R.id.setting_account;
-      TextView settingAccount = ViewBindings.findChildViewById(rootView, id);
-      if (settingAccount == null) {
+      id = R.id.profile_name;
+      TextView profileName = ViewBindings.findChildViewById(rootView, id);
+      if (profileName == null) {
         break missingId;
       }
 
-      id = R.id.setting_notifications;
-      TextView settingNotifications = ViewBindings.findChildViewById(rootView, id);
-      if (settingNotifications == null) {
+      id = R.id.settings_button;
+      TextView settingsButton = ViewBindings.findChildViewById(rootView, id);
+      if (settingsButton == null) {
         break missingId;
       }
 
-      id = R.id.setting_subscription;
-      TextView settingSubscription = ViewBindings.findChildViewById(rootView, id);
-      if (settingSubscription == null) {
+      id = R.id.settings_card;
+      CardView settingsCard = ViewBindings.findChildViewById(rootView, id);
+      if (settingsCard == null) {
         break missingId;
       }
 
-      id = R.id.text_user_email;
-      TextView textUserEmail = ViewBindings.findChildViewById(rootView, id);
-      if (textUserEmail == null) {
+      id = R.id.subscription_card;
+      CardView subscriptionCard = ViewBindings.findChildViewById(rootView, id);
+      if (subscriptionCard == null) {
         break missingId;
       }
 
-      id = R.id.text_user_name;
-      TextView textUserName = ViewBindings.findChildViewById(rootView, id);
-      if (textUserName == null) {
+      id = R.id.subscription_chip;
+      Chip subscriptionChip = ViewBindings.findChildViewById(rootView, id);
+      if (subscriptionChip == null) {
         break missingId;
       }
 
-      id = R.id.text_user_status;
-      TextView textUserStatus = ViewBindings.findChildViewById(rootView, id);
-      if (textUserStatus == null) {
+      id = R.id.subscription_details;
+      TextView subscriptionDetails = ViewBindings.findChildViewById(rootView, id);
+      if (subscriptionDetails == null) {
         break missingId;
       }
 
-      return new FragmentProfileBinding((ConstraintLayout) rootView, buttonLoginLogout,
-          cardSettings, cardUserInfo, imageProfile, settingAbout, settingAccount,
-          settingNotifications, settingSubscription, textUserEmail, textUserName, textUserStatus);
+      id = R.id.subscription_title;
+      TextView subscriptionTitle = ViewBindings.findChildViewById(rootView, id);
+      if (subscriptionTitle == null) {
+        break missingId;
+      }
+
+      id = R.id.title;
+      TextView title = ViewBindings.findChildViewById(rootView, id);
+      if (title == null) {
+        break missingId;
+      }
+
+      id = R.id.upgrade_button;
+      MaterialButton upgradeButton = ViewBindings.findChildViewById(rootView, id);
+      if (upgradeButton == null) {
+        break missingId;
+      }
+
+      return new FragmentProfileBinding((NestedScrollView) rootView, helpButton, logoutButton,
+          profileCard, profileEmail, profileImage, profileName, settingsButton, settingsCard,
+          subscriptionCard, subscriptionChip, subscriptionDetails, subscriptionTitle, title,
+          upgradeButton);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

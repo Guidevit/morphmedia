@@ -8,49 +8,46 @@ import com.example.lhm3d.data.model.Model3D
 import com.example.lhm3d.data.repository.ModelRepository
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for the Home screen
+ */
 class HomeViewModel : ViewModel() {
-
+    
     private val modelRepository = ModelRepository()
+    
+    // LiveData for UI states
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
     
     private val _recentModels = MutableLiveData<List<Model3D>>()
     val recentModels: LiveData<List<Model3D>> = _recentModels
     
-    private val _popularModels = MutableLiveData<List<Model3D>>()
-    val popularModels: LiveData<List<Model3D>> = _popularModels
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
     
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-    
-    init {
-        loadRecentModels()
-        loadPopularModels()
-    }
-    
-    private fun loadRecentModels() {
+    /**
+     * Load recent models from the repository
+     */
+    fun loadRecentModels() {
+        _isLoading.value = true
+        _error.value = null
+        
         viewModelScope.launch {
-            _isLoading.value = true
             try {
-                val models = modelRepository.getRecentModels(5)
+                val models = modelRepository.getRecentModels(10) // Limit to 10 recent models
                 _recentModels.value = models
+                _isLoading.value = false
             } catch (e: Exception) {
-                // Handle error 
-            } finally {
+                _error.value = e.message
                 _isLoading.value = false
             }
         }
     }
     
-    private fun loadPopularModels() {
-        viewModelScope.launch {
-            _isLoading.value = true
-            try {
-                val models = modelRepository.getPopularModels(5)
-                _popularModels.value = models
-            } catch (e: Exception) {
-                // Handle error
-            } finally {
-                _isLoading.value = false
-            }
-        }
+    /**
+     * Refresh the model list, for use with swipe refresh
+     */
+    fun refreshModels() {
+        loadRecentModels()
     }
 }

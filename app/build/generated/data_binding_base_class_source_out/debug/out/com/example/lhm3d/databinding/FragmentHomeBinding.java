@@ -5,91 +5,77 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.lhm3d.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class FragmentHomeBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final NestedScrollView rootView;
 
   @NonNull
-  public final CardView cardCreate;
+  public final RecyclerView featuredModelsRecycler;
 
   @NonNull
-  public final CardView cardGallery;
+  public final TextView featuredModelsTitle;
 
   @NonNull
-  public final CardView cardMyModels;
+  public final ProgressBar loadingIndicator;
 
   @NonNull
-  public final ImageView iconCreate;
+  public final RecyclerView recentModelsRecycler;
 
   @NonNull
-  public final ImageView iconGallery;
+  public final TextView recentModelsTitle;
 
   @NonNull
-  public final ImageView iconMyModels;
+  public final TextView title;
 
   @NonNull
-  public final TextView textCreateDescription;
+  public final MaterialButton tutorialButton;
 
   @NonNull
-  public final TextView textCreateTitle;
+  public final MaterialCardView tutorialCard;
 
   @NonNull
-  public final TextView textDescription;
+  public final ImageView tutorialImage;
 
   @NonNull
-  public final TextView textGalleryDescription;
+  public final TextView tutorialTitle;
 
-  @NonNull
-  public final TextView textGalleryTitle;
-
-  @NonNull
-  public final TextView textMyModelsDescription;
-
-  @NonNull
-  public final TextView textMyModelsTitle;
-
-  @NonNull
-  public final TextView textWelcome;
-
-  private FragmentHomeBinding(@NonNull ConstraintLayout rootView, @NonNull CardView cardCreate,
-      @NonNull CardView cardGallery, @NonNull CardView cardMyModels, @NonNull ImageView iconCreate,
-      @NonNull ImageView iconGallery, @NonNull ImageView iconMyModels,
-      @NonNull TextView textCreateDescription, @NonNull TextView textCreateTitle,
-      @NonNull TextView textDescription, @NonNull TextView textGalleryDescription,
-      @NonNull TextView textGalleryTitle, @NonNull TextView textMyModelsDescription,
-      @NonNull TextView textMyModelsTitle, @NonNull TextView textWelcome) {
+  private FragmentHomeBinding(@NonNull NestedScrollView rootView,
+      @NonNull RecyclerView featuredModelsRecycler, @NonNull TextView featuredModelsTitle,
+      @NonNull ProgressBar loadingIndicator, @NonNull RecyclerView recentModelsRecycler,
+      @NonNull TextView recentModelsTitle, @NonNull TextView title,
+      @NonNull MaterialButton tutorialButton, @NonNull MaterialCardView tutorialCard,
+      @NonNull ImageView tutorialImage, @NonNull TextView tutorialTitle) {
     this.rootView = rootView;
-    this.cardCreate = cardCreate;
-    this.cardGallery = cardGallery;
-    this.cardMyModels = cardMyModels;
-    this.iconCreate = iconCreate;
-    this.iconGallery = iconGallery;
-    this.iconMyModels = iconMyModels;
-    this.textCreateDescription = textCreateDescription;
-    this.textCreateTitle = textCreateTitle;
-    this.textDescription = textDescription;
-    this.textGalleryDescription = textGalleryDescription;
-    this.textGalleryTitle = textGalleryTitle;
-    this.textMyModelsDescription = textMyModelsDescription;
-    this.textMyModelsTitle = textMyModelsTitle;
-    this.textWelcome = textWelcome;
+    this.featuredModelsRecycler = featuredModelsRecycler;
+    this.featuredModelsTitle = featuredModelsTitle;
+    this.loadingIndicator = loadingIndicator;
+    this.recentModelsRecycler = recentModelsRecycler;
+    this.recentModelsTitle = recentModelsTitle;
+    this.title = title;
+    this.tutorialButton = tutorialButton;
+    this.tutorialCard = tutorialCard;
+    this.tutorialImage = tutorialImage;
+    this.tutorialTitle = tutorialTitle;
   }
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public NestedScrollView getRoot() {
     return rootView;
   }
 
@@ -114,94 +100,69 @@ public final class FragmentHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.card_create;
-      CardView cardCreate = ViewBindings.findChildViewById(rootView, id);
-      if (cardCreate == null) {
+      id = R.id.featured_models_recycler;
+      RecyclerView featuredModelsRecycler = ViewBindings.findChildViewById(rootView, id);
+      if (featuredModelsRecycler == null) {
         break missingId;
       }
 
-      id = R.id.card_gallery;
-      CardView cardGallery = ViewBindings.findChildViewById(rootView, id);
-      if (cardGallery == null) {
+      id = R.id.featured_models_title;
+      TextView featuredModelsTitle = ViewBindings.findChildViewById(rootView, id);
+      if (featuredModelsTitle == null) {
         break missingId;
       }
 
-      id = R.id.card_my_models;
-      CardView cardMyModels = ViewBindings.findChildViewById(rootView, id);
-      if (cardMyModels == null) {
+      id = R.id.loading_indicator;
+      ProgressBar loadingIndicator = ViewBindings.findChildViewById(rootView, id);
+      if (loadingIndicator == null) {
         break missingId;
       }
 
-      id = R.id.icon_create;
-      ImageView iconCreate = ViewBindings.findChildViewById(rootView, id);
-      if (iconCreate == null) {
+      id = R.id.recent_models_recycler;
+      RecyclerView recentModelsRecycler = ViewBindings.findChildViewById(rootView, id);
+      if (recentModelsRecycler == null) {
         break missingId;
       }
 
-      id = R.id.icon_gallery;
-      ImageView iconGallery = ViewBindings.findChildViewById(rootView, id);
-      if (iconGallery == null) {
+      id = R.id.recent_models_title;
+      TextView recentModelsTitle = ViewBindings.findChildViewById(rootView, id);
+      if (recentModelsTitle == null) {
         break missingId;
       }
 
-      id = R.id.icon_my_models;
-      ImageView iconMyModels = ViewBindings.findChildViewById(rootView, id);
-      if (iconMyModels == null) {
+      id = R.id.title;
+      TextView title = ViewBindings.findChildViewById(rootView, id);
+      if (title == null) {
         break missingId;
       }
 
-      id = R.id.text_create_description;
-      TextView textCreateDescription = ViewBindings.findChildViewById(rootView, id);
-      if (textCreateDescription == null) {
+      id = R.id.tutorial_button;
+      MaterialButton tutorialButton = ViewBindings.findChildViewById(rootView, id);
+      if (tutorialButton == null) {
         break missingId;
       }
 
-      id = R.id.text_create_title;
-      TextView textCreateTitle = ViewBindings.findChildViewById(rootView, id);
-      if (textCreateTitle == null) {
+      id = R.id.tutorial_card;
+      MaterialCardView tutorialCard = ViewBindings.findChildViewById(rootView, id);
+      if (tutorialCard == null) {
         break missingId;
       }
 
-      id = R.id.text_description;
-      TextView textDescription = ViewBindings.findChildViewById(rootView, id);
-      if (textDescription == null) {
+      id = R.id.tutorial_image;
+      ImageView tutorialImage = ViewBindings.findChildViewById(rootView, id);
+      if (tutorialImage == null) {
         break missingId;
       }
 
-      id = R.id.text_gallery_description;
-      TextView textGalleryDescription = ViewBindings.findChildViewById(rootView, id);
-      if (textGalleryDescription == null) {
+      id = R.id.tutorial_title;
+      TextView tutorialTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tutorialTitle == null) {
         break missingId;
       }
 
-      id = R.id.text_gallery_title;
-      TextView textGalleryTitle = ViewBindings.findChildViewById(rootView, id);
-      if (textGalleryTitle == null) {
-        break missingId;
-      }
-
-      id = R.id.text_my_models_description;
-      TextView textMyModelsDescription = ViewBindings.findChildViewById(rootView, id);
-      if (textMyModelsDescription == null) {
-        break missingId;
-      }
-
-      id = R.id.text_my_models_title;
-      TextView textMyModelsTitle = ViewBindings.findChildViewById(rootView, id);
-      if (textMyModelsTitle == null) {
-        break missingId;
-      }
-
-      id = R.id.text_welcome;
-      TextView textWelcome = ViewBindings.findChildViewById(rootView, id);
-      if (textWelcome == null) {
-        break missingId;
-      }
-
-      return new FragmentHomeBinding((ConstraintLayout) rootView, cardCreate, cardGallery,
-          cardMyModels, iconCreate, iconGallery, iconMyModels, textCreateDescription,
-          textCreateTitle, textDescription, textGalleryDescription, textGalleryTitle,
-          textMyModelsDescription, textMyModelsTitle, textWelcome);
+      return new FragmentHomeBinding((NestedScrollView) rootView, featuredModelsRecycler,
+          featuredModelsTitle, loadingIndicator, recentModelsRecycler, recentModelsTitle, title,
+          tutorialButton, tutorialCard, tutorialImage, tutorialTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -4,86 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.gallery.GalleryFragment">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/gallery_tabs"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/gallery_title"
+        android:textAppearance="@style/TextAppearance.Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabGravity="fill"
-        app:tabMode="fixed">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.tabs.TabItem
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/filter_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/filter_all"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/my_models" />
+            android:checked="true"
+            android:text="@string/filter_all" />
 
-        <com.google.android.material.tabs.TabItem
+        <com.google.android.material.chip.Chip
+            android:id="@+id/filter_recent"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/community_models" />
-    </com.google.android.material.tabs.TabLayout>
+            android:text="@string/filter_recent" />
 
-    <LinearLayout
-        android:id="@+id/filter_controls"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gallery_tabs">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_sort"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="0dp"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/filter_favorites"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/sort_by"
-            app:icon="@android:drawable/ic_menu_sort_by_size" />
+            android:text="@string/filter_favorites" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_filter"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/filter"
-            app:icon="@android:drawable/ic_menu_manage" />
-    </LinearLayout>
+    </com.google.android.material.chip.ChipGroup>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_models"
-        android:layout_width="0dp"
+        android:id="@+id/models_recycler"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter_controls"
+        app:layout_constraintTop_toBottomOf="@+id/filter_group"
         app:spanCount="2"
-        tools:listitem="@layout/item_model" />
+        tools:itemCount="8"
+        tools:listitem="@layout/item_model_card" />
 
     <TextView
-        android:id="@+id/text_empty_state"
+        android:id="@+id/empty_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/no_models_yet"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:text="@string/gallery_empty"
+        android:textAppearance="@style/TextAppearance.Subtitle"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter_controls" />
+        app:layout_constraintTop_toBottomOf="@+id/filter_group" />
+
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

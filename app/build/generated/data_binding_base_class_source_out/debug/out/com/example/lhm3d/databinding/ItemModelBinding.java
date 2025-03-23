@@ -8,42 +8,43 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.lhm3d.R;
+import com.google.android.material.card.MaterialCardView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ItemModelBinding implements ViewBinding {
   @NonNull
-  private final CardView rootView;
+  private final MaterialCardView rootView;
 
   @NonNull
-  public final TextView likeCount;
+  public final ImageView imageModelThumbnail;
 
   @NonNull
-  public final ImageView modelImage;
+  public final TextView textModelDate;
 
   @NonNull
-  public final TextView modelName;
+  public final TextView textModelStatus;
 
   @NonNull
-  public final TextView modelStatus;
+  public final TextView textModelTitle;
 
-  private ItemModelBinding(@NonNull CardView rootView, @NonNull TextView likeCount,
-      @NonNull ImageView modelImage, @NonNull TextView modelName, @NonNull TextView modelStatus) {
+  private ItemModelBinding(@NonNull MaterialCardView rootView,
+      @NonNull ImageView imageModelThumbnail, @NonNull TextView textModelDate,
+      @NonNull TextView textModelStatus, @NonNull TextView textModelTitle) {
     this.rootView = rootView;
-    this.likeCount = likeCount;
-    this.modelImage = modelImage;
-    this.modelName = modelName;
-    this.modelStatus = modelStatus;
+    this.imageModelThumbnail = imageModelThumbnail;
+    this.textModelDate = textModelDate;
+    this.textModelStatus = textModelStatus;
+    this.textModelTitle = textModelTitle;
   }
 
   @Override
   @NonNull
-  public CardView getRoot() {
+  public MaterialCardView getRoot() {
     return rootView;
   }
 
@@ -68,32 +69,32 @@ public final class ItemModelBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.likeCount;
-      TextView likeCount = ViewBindings.findChildViewById(rootView, id);
-      if (likeCount == null) {
+      id = R.id.image_model_thumbnail;
+      ImageView imageModelThumbnail = ViewBindings.findChildViewById(rootView, id);
+      if (imageModelThumbnail == null) {
         break missingId;
       }
 
-      id = R.id.modelImage;
-      ImageView modelImage = ViewBindings.findChildViewById(rootView, id);
-      if (modelImage == null) {
+      id = R.id.text_model_date;
+      TextView textModelDate = ViewBindings.findChildViewById(rootView, id);
+      if (textModelDate == null) {
         break missingId;
       }
 
-      id = R.id.modelName;
-      TextView modelName = ViewBindings.findChildViewById(rootView, id);
-      if (modelName == null) {
+      id = R.id.text_model_status;
+      TextView textModelStatus = ViewBindings.findChildViewById(rootView, id);
+      if (textModelStatus == null) {
         break missingId;
       }
 
-      id = R.id.modelStatus;
-      TextView modelStatus = ViewBindings.findChildViewById(rootView, id);
-      if (modelStatus == null) {
+      id = R.id.text_model_title;
+      TextView textModelTitle = ViewBindings.findChildViewById(rootView, id);
+      if (textModelTitle == null) {
         break missingId;
       }
 
-      return new ItemModelBinding((CardView) rootView, likeCount, modelImage, modelName,
-          modelStatus);
+      return new ItemModelBinding((MaterialCardView) rootView, imageModelThumbnail, textModelDate,
+          textModelStatus, textModelTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

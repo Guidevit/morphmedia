@@ -1,130 +1,131 @@
 package com.example.lhm3d.data.repository
 
+import android.content.Context
+import android.net.Uri
 import com.example.lhm3d.data.model.Model3D
 import com.example.lhm3d.data.model.ProcessingStatus
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.ktx.toObject
-import kotlinx.coroutines.tasks.await
-import java.io.File
+import com.example.lhm3d.data.model.SubscriptionType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import java.util.Date
 
-class ModelRepository {
+/**
+ * Repository for Model3D data operations
+ */
+class ModelRepository(private val context: Context) {
+    
+    private val firebaseManager = FirebaseManager.getInstance(context)
     
     /**
-     * Get a list of recent models
+     * Fetch all models belonging to the current user
      */
-    suspend fun getRecentModels(limit: Int = 10): List<Model3D> {
-        return try {
-            val querySnapshot = FirebaseManager.getRecentModelsQuery()
-                .limit(limit.toLong())
-                .get()
-                .await()
-                
-            querySnapshot.documents.mapNotNull { it.toModel() }
-        } catch (e: Exception) {
-            emptyList()
-        }
-    }
+    fun getUserModels(): Flow<List<Model3D>> = flow {
+        val models = firebaseManager.getUserModels()
+        emit(models)
+    }.flowOn(Dispatchers.IO)
     
     /**
-     * Get a list of popular models
+     * Fetch public models that can be viewed by anyone
      */
-    suspend fun getPopularModels(limit: Int = 10): List<Model3D> {
-        return try {
-            val querySnapshot = FirebaseManager.getPopularModelsQuery()
-                .limit(limit.toLong())
-                .get()
-                .await()
-                
-            querySnapshot.documents.mapNotNull { it.toModel() }
-        } catch (e: Exception) {
-            emptyList()
-        }
-    }
+    fun getPublicModels(): Flow<List<Model3D>> = flow {
+        val models = firebaseManager.getPublicModels()
+        emit(models)
+    }.flowOn(Dispatchers.IO)
     
     /**
-     * Get a list of user's models
+     * Get a specific model by its ID
      */
-    suspend fun getUserModels(): List<Model3D> {
-        return try {
-            val querySnapshot = FirebaseManager.getUserModelsQuery()
-                .get()
-                .await()
-                
-            querySnapshot.documents.mapNotNull { it.toModel() }
-        } catch (e: Exception) {
-            emptyList()
-        }
-    }
+    fun getModelById(modelId: String): Flow<Model3D?> = flow {
+        val model = firebaseManager.getModelById(modelId)
+        emit(model)
+    }.flowOn(Dispatchers.IO)
     
     /**
-     * Get a model by ID
+     * Create a new model with an image source
      */
-    suspend fun getModelById(modelId: String): Model3D? {
-        return try {
-            val document = FirebaseManager.getModelsCollection()
-                .document(modelId)
-                .get()
-                .await()
-                
-            document.toModel()
-        } catch (e: Exception) {
-            null
-        }
-    }
+    fun createModelFromImage(
+        name: String,
+        description: String,
+        imageUri: Uri,
+        isPublic: Boolean = false,
+        subscriptionType: SubscriptionType = SubscriptionType.FREE
+    ): Flow<String> = flow {
+        // Create initial model object
+        val currentUser = firebaseManager.getCurrentUser()
+        val model = Model3D(
+            userId = currentUser?.uid ?: "",
+            name = name,
+            description = description,
+            creationDate = Date(),
+            lastModified = Date(),
+            status = ProcessingStatus.UPLOADING,
+            isPublic = isPublic,
+            subscriptionType = subscriptionType
+        )
+        
+        // Save model to get ID
+        val modelId = firebaseManager.saveModel(model)
+        
+        // Upload image
+        val imageUrl = firebaseManager.uploadSourceImage(modelId, imageUri)
+        
+        // Update model with image URL and status
+        val updatedModel = model.copy(
+            id = modelId,
+            sourceImageUrl = imageUrl,
+            status = ProcessingStatus.QUEUED
+        )
+        firebaseManager.saveModel(updatedModel)
+        
+        // Return the model ID
+        emit(modelId)
+    }.flowOn(Dispatchers.IO)
     
     /**
-     * Create a new model from an image file
+     * Delete a model by its ID
      */
-    suspend fun createModelFromImage(name: String, description: String, imageFile: File, isPublic: Boolean): Model3D? {
+    fun deleteModel(modelId: String): Flow<Boolean> = flow {
         try {
-            // 1. Create a new model document in Firestore
-            val modelData = hashMapOf(
-                "name" to name,
-                "description" to description,
-                "creatorId" to FirebaseManager.getUserId(),
-                "creatorName" to (FirebaseManager.getCurrentUser()?.displayName ?: "Anonymous"),
-                "status" to ProcessingStatus.QUEUED.name,
-                "isPublic" to isPublic,
-                "createdAt" to com.google.firebase.Timestamp.now(),
-                "updatedAt" to com.google.firebase.Timestamp.now(),
-                "viewCount" to 0,
-                "likeCount" to 0,
-                "tags" to listOf<String>()
-            )
-            
-            val modelRef = FirebaseManager.getModelsCollection().document()
-            val modelId = modelRef.id
-            modelRef.set(modelData).await()
-            
-            // 2. Upload the image file to Storage
-            val imageRef = FirebaseManager.getImageStorageRef(modelId)
-            val uploadTask = imageRef.putFile(android.net.Uri.fromFile(imageFile)).await()
-            val imageUrl = uploadTask.storage.downloadUrl.await().toString()
-            
-            // 3. Update the model document with the image URL
-            val updates = hashMapOf<String, Any>(
-                "originalImageUrl" to imageUrl,
-                "updatedAt" to com.google.firebase.Timestamp.now()
-            )
-            
-            modelRef.update(updates).await()
-            
-            // 4. Return the created model
-            return getModelById(modelId)
+            firebaseManager.deleteModel(modelId)
+            emit(true)
         } catch (e: Exception) {
-            return null
+            emit(false)
         }
-    }
+    }.flowOn(Dispatchers.IO)
     
     /**
-     * Convert a Firestore document to a Model3D object
+     * Update model status
      */
-    private fun DocumentSnapshot.toModel(): Model3D? {
-        val model = toObject<Model3D>()
-        model?.let {
-            // Add document ID as model ID if needed
-            return it.copy(id = id)
+    fun updateModelStatus(modelId: String, status: ProcessingStatus): Flow<Boolean> = flow {
+        try {
+            val model = firebaseManager.getModelById(modelId)
+            if (model != null) {
+                val updatedModel = model.copy(
+                    status = status,
+                    lastModified = Date()
+                )
+                firebaseManager.saveModel(updatedModel)
+                emit(true)
+            } else {
+                emit(false)
+            }
+        } catch (e: Exception) {
+            emit(false)
         }
-        return model
-    }
+    }.flowOn(Dispatchers.IO)
+    
+    /**
+     * Update model properties
+     */
+    fun updateModel(model: Model3D): Flow<Boolean> = flow {
+        try {
+            val updatedModel = model.copy(lastModified = Date())
+            firebaseManager.saveModel(updatedModel)
+            emit(true)
+        } catch (e: Exception) {
+            emit(false)
+        }
+    }.flowOn(Dispatchers.IO)
 }

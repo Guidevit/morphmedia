@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.lhm3d.R;
@@ -23,12 +24,17 @@ public final class ActivityMainBinding implements ViewBinding {
   public final ConstraintLayout container;
 
   @NonNull
+  public final FragmentContainerView navHostFragment;
+
+  @NonNull
   public final BottomNavigationView navView;
 
   private ActivityMainBinding(@NonNull ConstraintLayout rootView,
-      @NonNull ConstraintLayout container, @NonNull BottomNavigationView navView) {
+      @NonNull ConstraintLayout container, @NonNull FragmentContainerView navHostFragment,
+      @NonNull BottomNavigationView navView) {
     this.rootView = rootView;
     this.container = container;
+    this.navHostFragment = navHostFragment;
     this.navView = navView;
   }
 
@@ -61,13 +67,20 @@ public final class ActivityMainBinding implements ViewBinding {
     missingId: {
       ConstraintLayout container = (ConstraintLayout) rootView;
 
+      id = R.id.nav_host_fragment;
+      FragmentContainerView navHostFragment = ViewBindings.findChildViewById(rootView, id);
+      if (navHostFragment == null) {
+        break missingId;
+      }
+
       id = R.id.nav_view;
       BottomNavigationView navView = ViewBindings.findChildViewById(rootView, id);
       if (navView == null) {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, container, navView);
+      return new ActivityMainBinding((ConstraintLayout) rootView, container, navHostFragment,
+          navView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
