@@ -1,56 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_width="160dp"
+    android:layout_height="180dp"
+    android:layout_margin="4dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
+        <!-- Model Image -->
         <ImageView
-            android:id="@+id/model_thumbnail"
-            android:layout_width="0dp"
+            android:id="@+id/modelImage"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:contentDescription="Model thumbnail"
             android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toTopOf="@+id/modelName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@android:drawable/ic_menu_report_image" />
+            tools:src="@drawable/placeholder_model" />
 
+        <!-- Processing Status Overlay -->
         <TextView
-            android:id="@+id/model_name"
-            android:layout_width="0dp"
+            android:id="@+id/modelStatus"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:background="@android:color/holo_blue_light"
+            android:padding="4dp"
+            android:text="Processing"
+            android:textColor="@android:color/white"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/model_thumbnail"
-            tools:text="Model Name" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
+        <!-- Model Name -->
         <TextView
-            android:id="@+id/model_date"
-            android:layout_width="0dp"
+            android:id="@+id/modelName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp"
-            android:textAlignment="center"
-            android:textSize="12sp"
+            android:background="#40000000"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/model_name"
-            tools:text="Created: Mar 23, 2025" />
+            tools:text="Model Name" />
+
+        <!-- Like Count -->
+        <TextView
+            android:id="@+id/likeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#40000000"
+            android:drawableStart="@android:drawable/btn_star_big_on"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:padding="4dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="42" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

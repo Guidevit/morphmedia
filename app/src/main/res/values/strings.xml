@@ -1,79 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LHM 3D</string>
-    
-    <!-- Menu items -->
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_create">Create</string>
-    <string name="menu_profile">Profile</string>
-    
-    <!-- Home Screen -->
+    <string name="title_home">Home</string>
+    <string name="title_gallery">Gallery</string>
+    <string name="title_create">Create</string>
+    <string name="title_settings">Settings</string>
     <string name="welcome_message">Welcome to LHM 3D</string>
-    <string name="app_description">Create and animate realistic 3D human models from your photos</string>
-    <string name="start_creating">Start Creating</string>
-    <string name="featured_models">Featured Models</string>
-    <string name="recent_models">Recent Creations</string>
-    
-    <!-- Gallery Screen -->
-    <string name="my_models">My Models</string>
-    <string name="community_models">Community</string>
-    <string name="sort_by">Sort</string>
-    <string name="filter">Filter</string>
-    <string name="no_models_yet">No models yet.\nCreate your first 3D model!</string>
-    
-    <!-- Create Model Screen -->
-    <string name="create_model">Create New Model</string>
-    <string name="upload_image">Upload</string>
-    <string name="take_photo">Camera</string>
-    <string name="generate_model">Generate 3D Model</string>
-    <string name="model_options">Model Options</string>
-    <string name="processing">Processing your model…</string>
-    
-    <!-- Profile Screen -->
-    <string name="account_settings">Account Settings</string>
-    <string name="notification_settings">Notifications</string>
-    <string name="subscription">Subscription</string>
-    <string name="about">About</string>
-    <string name="logout">Log Out</string>
-    <string name="login">Log In</string>
-    
-    <!-- Authentication -->
-    <string name="login_title">Log In</string>
-    <string name="register_title">Create Account</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="login_button">Log In</string>
-    <string name="register_button">Register</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="or_register">Don\'t have an account? Register</string>
-    <string name="or_login">Already have an account? Log In</string>
-    
-    <!-- Model Viewer -->
-    <string name="model_details">Model Details</string>
-    <string name="edit_model">Edit</string>
-    <string name="delete_model">Delete</string>
-    <string name="share_model">Share</string>
-    <string name="animate_model">Animate</string>
-    <string name="export_model">Export</string>
-    
-    <!-- Animations -->
-    <string name="animation_title">Animation Controls</string>
-    <string name="play_animation">Play</string>
-    <string name="pause_animation">Pause</string>
-    <string name="record_animation">Record</string>
-    <string name="save_animation">Save</string>
-    
-    <!-- Subscription -->
-    <string name="subscription_title">Premium Features</string>
-    <string name="free_features">Free Features</string>
-    <string name="premium_features">Premium Features</string>
-    <string name="subscribe_button">Subscribe Now</string>
-    <string name="restore_purchases">Restore Purchases</string>
-    
-    <!-- Miscellaneous -->
-    <string name="loading">Loading…</string>
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
-    <string name="confirm">Confirm</string>
+    <string name="create_model_description">Create a new 3D human model</string>
+    <string name="gallery_description">View your saved models</string>
+    <string name="settings_description">Configure app settings</string>
+    <string name="select_image">Select Image</string>
+    <string name="start_processing">Start Processing</string>
+    <string name="view_model">View Model</string>
+    <string name="save_model">Save Model</string>
+    <string name="delete_model">Delete Model</string>
+    <string name="share_model">Share Model</string>
+    <string name="no_models_available">No models available</string>
+    <string name="processing_image">Processing your image…</string>
+    <string name="error_processing">Error processing image</string>
 </resources>
