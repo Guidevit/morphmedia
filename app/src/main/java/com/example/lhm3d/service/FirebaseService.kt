@@ -45,7 +45,9 @@ class FirebaseService {
 
     // User data methods
     fun getUserData(): Flow<Result<User>> {
-        val userId = getCurrentUserId() ?: return Flow { emit(Result.failure(Exception("User not logged in"))) }
+        val userId = getCurrentUserId() ?: return kotlinx.coroutines.flow.flow { 
+            emit(Result.failure(Exception("User not logged in"))) 
+        }
         return userRepository.getUserData(userId)
     }
 
@@ -71,12 +73,16 @@ class FirebaseService {
     }
 
     fun getUserModels(): Flow<Result<List<Model3D>>> {
-        val userId = getCurrentUserId() ?: return Flow { emit(Result.failure(Exception("User not logged in"))) }
+        val userId = getCurrentUserId() ?: return kotlinx.coroutines.flow.flow { 
+            emit(Result.failure(Exception("User not logged in"))) 
+        }
         return modelsRepository.getUserModels(userId)
     }
 
     fun getRecentModels(limit: Int = 5): Flow<Result<List<Model3D>>> {
-        val userId = getCurrentUserId() ?: return Flow { emit(Result.failure(Exception("User not logged in"))) }
+        val userId = getCurrentUserId() ?: return kotlinx.coroutines.flow.flow { 
+            emit(Result.failure(Exception("User not logged in"))) 
+        }
         return modelsRepository.getRecentModels(userId, limit)
     }
 

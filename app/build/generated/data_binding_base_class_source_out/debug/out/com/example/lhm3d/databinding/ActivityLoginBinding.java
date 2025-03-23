@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,6 +53,9 @@ public final class ActivityLoginBinding implements ViewBinding {
   public final TextInputLayout passwordLayout;
 
   @NonNull
+  public final ProgressBar progressBar;
+
+  @NonNull
   public final MaterialButton signupButton;
 
   @NonNull
@@ -65,8 +69,8 @@ public final class ActivityLoginBinding implements ViewBinding {
       @NonNull TextInputLayout emailLayout, @NonNull TextView forgotPassword,
       @NonNull MaterialButton googleSignIn, @NonNull MaterialButton loginButton,
       @NonNull ImageView logo, @NonNull TextInputEditText password,
-      @NonNull TextInputLayout passwordLayout, @NonNull MaterialButton signupButton,
-      @NonNull TextView subtitle, @NonNull TextView title) {
+      @NonNull TextInputLayout passwordLayout, @NonNull ProgressBar progressBar,
+      @NonNull MaterialButton signupButton, @NonNull TextView subtitle, @NonNull TextView title) {
     this.rootView = rootView;
     this.dividerContainer = dividerContainer;
     this.email = email;
@@ -77,6 +81,7 @@ public final class ActivityLoginBinding implements ViewBinding {
     this.logo = logo;
     this.password = password;
     this.passwordLayout = passwordLayout;
+    this.progressBar = progressBar;
     this.signupButton = signupButton;
     this.subtitle = subtitle;
     this.title = title;
@@ -163,6 +168,12 @@ public final class ActivityLoginBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.progressBar;
+      ProgressBar progressBar = ViewBindings.findChildViewById(rootView, id);
+      if (progressBar == null) {
+        break missingId;
+      }
+
       id = R.id.signup_button;
       MaterialButton signupButton = ViewBindings.findChildViewById(rootView, id);
       if (signupButton == null) {
@@ -183,7 +194,7 @@ public final class ActivityLoginBinding implements ViewBinding {
 
       return new ActivityLoginBinding((ConstraintLayout) rootView, dividerContainer, email,
           emailLayout, forgotPassword, googleSignIn, loginButton, logo, password, passwordLayout,
-          signupButton, subtitle, title);
+          progressBar, signupButton, subtitle, title);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

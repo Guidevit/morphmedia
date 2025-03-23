@@ -48,9 +48,9 @@ class LoginActivity : AppCompatActivity() {
      */
     private fun setupClickListeners() {
         // Login button
-        binding.buttonLogin.setOnClickListener {
-            val email = binding.editTextEmail.text.toString().trim()
-            val password = binding.editTextPassword.text.toString().trim()
+        binding.loginButton.setOnClickListener {
+            val email = binding.email.text.toString().trim()
+            val password = binding.password.text.toString().trim()
             
             if (validateInputs(email, password)) {
                 viewModel.signIn(email, password)
@@ -58,9 +58,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Sign up button
-        binding.buttonSignUp.setOnClickListener {
-            val email = binding.editTextEmail.text.toString().trim()
-            val password = binding.editTextPassword.text.toString().trim()
+        binding.signupButton.setOnClickListener {
+            val email = binding.email.text.toString().trim()
+            val password = binding.password.text.toString().trim()
             
             if (validateInputs(email, password)) {
                 // For signup, we'll use email as displayName for simplicity
@@ -71,14 +71,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Google sign-in button
-        binding.buttonGoogleSignIn.setOnClickListener {
+        binding.googleSignIn.setOnClickListener {
             val signInIntent = viewModel.getGoogleSignInIntent()
             googleSignInLauncher.launch(signInIntent)
         }
 
         // Forgot password text
-        binding.textViewForgotPassword.setOnClickListener {
-            val email = binding.editTextEmail.text.toString().trim()
+        binding.forgotPassword.setOnClickListener {
+            val email = binding.email.text.toString().trim()
             if (email.isEmpty()) {
                 Toast.makeText(
                     this,
@@ -116,9 +116,9 @@ class LoginActivity : AppCompatActivity() {
         // Observe loading state
         viewModel.isLoading.observe(this, Observer { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            binding.buttonLogin.isEnabled = !isLoading
-            binding.buttonSignUp.isEnabled = !isLoading
-            binding.buttonGoogleSignIn.isEnabled = !isLoading
+            binding.loginButton.isEnabled = !isLoading
+            binding.signupButton.isEnabled = !isLoading
+            binding.googleSignIn.isEnabled = !isLoading
         })
 
         // Observe password reset state
@@ -147,20 +147,20 @@ class LoginActivity : AppCompatActivity() {
      */
     private fun validateInputs(email: String, password: String): Boolean {
         if (email.isEmpty()) {
-            binding.textInputLayoutEmail.error = "Email is required"
+            binding.emailLayout.error = "Email is required"
             return false
         } else {
-            binding.textInputLayoutEmail.error = null
+            binding.emailLayout.error = null
         }
 
         if (password.isEmpty()) {
-            binding.textInputLayoutPassword.error = "Password is required"
+            binding.passwordLayout.error = "Password is required"
             return false
         } else if (password.length < 6) {
-            binding.textInputLayoutPassword.error = "Password must be at least 6 characters"
+            binding.passwordLayout.error = "Password must be at least 6 characters"
             return false
         } else {
-            binding.textInputLayoutPassword.error = null
+            binding.passwordLayout.error = null
         }
 
         return true

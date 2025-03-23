@@ -38,6 +38,7 @@ color warningColor
 color white
 drawable error_image
 drawable ic_launcher_foreground
+drawable ic_menu_gallery
 drawable ic_splash
 drawable placeholder_image
 drawable placeholder_model
@@ -72,9 +73,11 @@ id container
 id control_panel
 id create_button
 id description_layout
+id dividerContainer
 id divider_container
 id edit_profile_fragment
 id email
+id emailLayout
 id email_layout
 id empty_text
 id featured_models_recycler
@@ -83,8 +86,10 @@ id filter_all
 id filter_favorites
 id filter_group
 id filter_recent
+id forgotPassword
 id forgot_password
 id glSurfaceView
+id googleSignIn
 id google_sign_in
 id help_button
 id imageViewAnimationType
@@ -99,6 +104,7 @@ id layoutProcessing
 id linearLayoutActions
 id loading_card
 id loading_indicator
+id loginButton
 id login_button
 id login_fragment
 id logo
@@ -122,11 +128,13 @@ id navigation_animation
 id navigation_create
 id navigation_gallery
 id navigation_home
+id navigation_login
 id navigation_models
 id navigation_preview
 id navigation_profile
 id navigation_tutorial
 id password
+id passwordLayout
 id password_layout
 id pause_button
 id placeholder_container
@@ -137,6 +145,7 @@ id profile_card
 id profile_email
 id profile_image
 id profile_name
+id progressBar
 id progressBarProcessing
 id progress_indicator
 id recent_models_recycler
@@ -145,6 +154,7 @@ id reset_button
 id save_button
 id settings_button
 id settings_card
+id signupButton
 id signup_button
 id signup_fragment
 id slider_detail_level
@@ -156,6 +166,7 @@ id subscription_details
 id subscription_title
 id subtitle
 id tab_layout
+id take_photo_button
 id textViewAnimationDescription
 id textViewAnimationName
 id textViewError
@@ -194,6 +205,7 @@ layout fragment_create
 layout fragment_create_model
 layout fragment_gallery
 layout fragment_home
+layout fragment_login
 layout fragment_preview
 layout fragment_profile
 layout fragment_tutorial
@@ -214,6 +226,7 @@ string create_button
 string create_description
 string create_model
 string create_name
+string create_take_photo
 string create_title
 string create_upload
 string delete
@@ -221,6 +234,7 @@ string download
 string edit_profile
 string email_hint
 string error
+string error_login
 string error_processing
 string featured_models
 string filter_all

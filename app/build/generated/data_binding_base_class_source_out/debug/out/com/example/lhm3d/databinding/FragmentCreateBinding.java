@@ -54,6 +54,9 @@ public final class FragmentCreateBinding implements ViewBinding {
   public final ImageView previewImage;
 
   @NonNull
+  public final MaterialButton takePhotoButton;
+
+  @NonNull
   public final TextView title;
 
   @NonNull
@@ -64,8 +67,8 @@ public final class FragmentCreateBinding implements ViewBinding {
       @NonNull MaterialCardView imageCard, @NonNull ProgressBar loadingIndicator,
       @NonNull TextInputEditText modelDescription, @NonNull TextInputEditText modelName,
       @NonNull TextInputLayout nameLayout, @NonNull LinearLayout placeholderContainer,
-      @NonNull ImageView previewImage, @NonNull TextView title,
-      @NonNull MaterialButton uploadButton) {
+      @NonNull ImageView previewImage, @NonNull MaterialButton takePhotoButton,
+      @NonNull TextView title, @NonNull MaterialButton uploadButton) {
     this.rootView = rootView;
     this.createButton = createButton;
     this.descriptionLayout = descriptionLayout;
@@ -76,6 +79,7 @@ public final class FragmentCreateBinding implements ViewBinding {
     this.nameLayout = nameLayout;
     this.placeholderContainer = placeholderContainer;
     this.previewImage = previewImage;
+    this.takePhotoButton = takePhotoButton;
     this.title = title;
     this.uploadButton = uploadButton;
   }
@@ -161,6 +165,12 @@ public final class FragmentCreateBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.take_photo_button;
+      MaterialButton takePhotoButton = ViewBindings.findChildViewById(rootView, id);
+      if (takePhotoButton == null) {
+        break missingId;
+      }
+
       id = R.id.title;
       TextView title = ViewBindings.findChildViewById(rootView, id);
       if (title == null) {
@@ -175,7 +185,7 @@ public final class FragmentCreateBinding implements ViewBinding {
 
       return new FragmentCreateBinding((ConstraintLayout) rootView, createButton, descriptionLayout,
           imageCard, loadingIndicator, modelDescription, modelName, nameLayout,
-          placeholderContainer, previewImage, title, uploadButton);
+          placeholderContainer, previewImage, takePhotoButton, title, uploadButton);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

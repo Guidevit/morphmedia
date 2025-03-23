@@ -43,18 +43,19 @@ class ModelAdapter(private val onModelClick: (Model3D) -> Unit) :
         }
 
         fun bind(model: Model3D) {
-            binding.textViewModelName.text = model.name
-            binding.textViewDate.text = model.getFormattedDate()
+            binding.textModelTitle.text = model.name
+            binding.textModelDate.text = model.getFormattedDate()
+            binding.textModelStatus.text = model.processingStatus.toString()
 
             // Load thumbnail
             if (model.thumbnailUrl.isNotEmpty()) {
-                Glide.with(binding.imageViewModelThumbnail.context)
+                Glide.with(binding.imageModelThumbnail.context)
                     .load(model.thumbnailUrl)
                     .placeholder(R.drawable.ic_menu_gallery)
-                    .into(binding.imageViewModelThumbnail)
+                    .into(binding.imageModelThumbnail)
             } else {
                 // Use a placeholder if there's no thumbnail
-                binding.imageViewModelThumbnail.setImageResource(R.drawable.ic_menu_gallery)
+                binding.imageModelThumbnail.setImageResource(R.drawable.ic_menu_gallery)
             }
         }
     }

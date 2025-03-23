@@ -44,6 +44,7 @@
     <string name="create_description">Description (optional)</string>
     <string name="create_model">Create 3D Model</string>
     <string name="create_name">Model Name</string>
+    <string name="create_take_photo">Take Photo</string>
     <string name="create_title">Create New Model</string>
     <string name="create_upload">Upload Image</string>
     <string name="delete">Delete</string>
@@ -51,6 +52,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="email_hint">Email</string>
     <string name="error">Error</string>
+    <string name="error_login">Authentication failed. Please try again.</string>
     <string name="error_processing">Error processing model</string>
     <string name="featured_models">Featured Models</string>
     <string name="filter_all">All</string>

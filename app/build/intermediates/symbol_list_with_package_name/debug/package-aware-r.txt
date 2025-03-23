@@ -3132,6 +3132,7 @@ drawable ic_launcher_foreground
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
+drawable ic_menu_gallery
 drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
@@ -3415,6 +3416,7 @@ id disableIntraAutoTransition
 id disablePostScroll
 id disableScroll
 id disjoint
+id dividerContainer
 id divider_container
 id dragAnticlockwise
 id dragClockwise
@@ -3435,6 +3437,7 @@ id edit_query
 id edit_text_id
 id elastic
 id email
+id emailLayout
 id email_layout
 id embed
 id empty_text
@@ -3465,6 +3468,7 @@ id fixed
 id flip
 id floating
 id forever
+id forgotPassword
 id forgot_password
 id fragment_container_view_tag
 id frost
@@ -3474,6 +3478,7 @@ id ghost_view_holder
 id glSurfaceView
 id glide_custom_view_target_tag
 id gone
+id googleSignIn
 id google_sign_in
 id graph
 id graph_wrap
@@ -3529,6 +3534,7 @@ id list_item
 id loading_card
 id loading_indicator
 id locale
+id loginButton
 id login_button
 id login_fragment
 id logo
@@ -3623,6 +3629,7 @@ id navigation_create
 id navigation_gallery
 id navigation_header_container
 id navigation_home
+id navigation_login
 id navigation_models
 id navigation_preview
 id navigation_profile
@@ -3667,6 +3674,7 @@ id parentPanel
 id parentRelative
 id parent_matrix
 id password
+id passwordLayout
 id password_layout
 id password_toggle
 id path
@@ -3686,6 +3694,7 @@ id profile_card
 id profile_email
 id profile_image
 id profile_name
+id progressBar
 id progressBarProcessing
 id progress_circular
 id progress_horizontal
@@ -3737,6 +3746,7 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id signupButton
 id signup_button
 id signup_fragment
 id sin
@@ -3796,6 +3806,7 @@ id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
+id take_photo_button
 id text
 id text2
 id textEnd
@@ -4024,6 +4035,7 @@ layout fragment_create
 layout fragment_create_model
 layout fragment_gallery
 layout fragment_home
+layout fragment_login
 layout fragment_preview
 layout fragment_profile
 layout fragment_tutorial
@@ -4187,6 +4199,7 @@ string create_button
 string create_description
 string create_model
 string create_name
+string create_take_photo
 string create_title
 string create_upload
 string delete
@@ -4197,6 +4210,7 @@ string email_hint
 string error
 string error_a11y_label
 string error_icon_content_description
+string error_login
 string error_processing
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior

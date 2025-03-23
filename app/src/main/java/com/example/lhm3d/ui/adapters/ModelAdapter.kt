@@ -34,10 +34,10 @@ class ModelAdapter(
         private val onModelClick: (Model) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
         
-        private val modelImage: ImageView = itemView.findViewById(R.id.modelImage)
-        private val modelName: TextView = itemView.findViewById(R.id.modelName)
-        private val modelStatus: TextView = itemView.findViewById(R.id.modelStatus)
-        private val likeCount: TextView = itemView.findViewById(R.id.likeCount)
+        private val modelImage: ImageView = itemView.findViewById(R.id.image_model_thumbnail)
+        private val modelName: TextView = itemView.findViewById(R.id.text_model_title)
+        private val modelStatus: TextView = itemView.findViewById(R.id.text_model_status)
+        private val modelDate: TextView = itemView.findViewById(R.id.text_model_date)
         
         fun bind(model: Model) {
             // Set model name
@@ -51,8 +51,9 @@ class ModelAdapter(
                 modelStatus.visibility = View.GONE
             }
             
-            // Set like count
-            likeCount.text = model.likes.toString()
+            // Set date
+            val dateFormat = java.text.SimpleDateFormat("MMM dd, yyyy", java.util.Locale.getDefault())
+            modelDate.text = dateFormat.format(model.createdAt)
             
             // Load image with Glide
             val imageUrl = if (model.thumbnailUrl.isNotEmpty()) {

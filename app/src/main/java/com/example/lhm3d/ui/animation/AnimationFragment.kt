@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.core.view.isVisible
+import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -33,6 +36,16 @@ class AnimationFragment : Fragment() {
     
     private var renderer: GLSurfaceRenderer? = null
     private var isPlaying = false
+    private lateinit var chipGroupAnimations: com.google.android.material.chip.ChipGroup
+    private lateinit var glSurfaceView: GLSurfaceView
+    
+    // UI Controls
+    private var playButton: com.google.android.material.button.MaterialButton? = null
+    private var pauseButton: com.google.android.material.button.MaterialButton? = null
+    private var resetButton: com.google.android.material.button.MaterialButton? = null
+    private var saveButton: com.google.android.material.button.MaterialButton? = null
+    private var loopCheckbox: android.widget.CheckBox? = null
+    private var speedSeekbar: android.widget.SeekBar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +73,9 @@ class AnimationFragment : Fragment() {
      * Set up the OpenGL surface view.
      */
     private fun setupGLSurfaceView() {
-        binding.glSurfaceView.apply {
+        // Create GLSurfaceView programmatically and add it to the model_container
+        val glSurfaceView = GLSurfaceView(requireContext())
+        glSurfaceView.apply {
             setEGLContextClientVersion(2)
             setZOrderOnTop(true)
             setEGLConfigChooser(8, 8, 8, 8, 16, 0)
@@ -73,13 +88,35 @@ class AnimationFragment : Fragment() {
             // Render continuously for animations
             renderMode = GLSurfaceView.RENDERMODE_CONTINUOUSLY
         }
+        
+        // Find the model_container and replace model_view with our GLSurfaceView
+        val container = binding.root.findViewById<ViewGroup>(R.id.model_container)
+        val modelView = binding.root.findViewById<View>(R.id.model_view)
+        if (container != null && modelView != null) {
+            val index = container.indexOfChild(modelView)
+            container.removeView(modelView)
+            container.addView(glSurfaceView, index)
+        } else {
+            // Fallback if the views weren't found
+            container?.addView(glSurfaceView)
+        }
+        
+        // Store the glSurfaceView reference for later use
+        this.glSurfaceView = glSurfaceView
     }
 
     /**
      * Set up animation chip group.
      */
     private fun setupAnimationChips() {
-        binding.chipGroupAnimations.setOnCheckedChangeListener { group, checkedId ->
+        // Create the chip group if needed
+        if (!::chipGroupAnimations.isInitialized) {
+            chipGroupAnimations = com.google.android.material.chip.ChipGroup(requireContext())
+            chipGroupAnimations.id = View.generateViewId()
+            binding.root.findViewById<ViewGroup>(R.id.control_panel)?.addView(chipGroupAnimations)
+        }
+        
+        chipGroupAnimations.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId != View.NO_ID) {
                 val chip = group.findViewById<Chip>(checkedId)
                 val animationName = chip.text.toString()
@@ -92,32 +129,48 @@ class AnimationFragment : Fragment() {
      * Set up animation controls.
      */
     private fun setupControls() {
+        // Find control elements from layout
+        val playButton = binding.root.findViewById<com.google.android.material.button.MaterialButton>(R.id.play_button)
+        val pauseButton = binding.root.findViewById<com.google.android.material.button.MaterialButton>(R.id.pause_button)
+        val resetButton = binding.root.findViewById<com.google.android.material.button.MaterialButton>(R.id.reset_button)
+        val loopCheckbox = binding.root.findViewById<android.widget.CheckBox>(R.id.loop_checkbox)
+        val speedSeekbar = binding.root.findViewById<android.widget.SeekBar>(R.id.speed_slider)
+        val saveButton = binding.root.findViewById<com.google.android.material.button.MaterialButton>(R.id.save_button)
+        
+        // Store references to controls
+        this.playButton = playButton
+        this.pauseButton = pauseButton
+        this.resetButton = resetButton
+        this.loopCheckbox = loopCheckbox
+        this.speedSeekbar = speedSeekbar
+        this.saveButton = saveButton
+        
         // Play button
-        binding.buttonPlay.setOnClickListener {
+        playButton?.setOnClickListener {
             isPlaying = true
-            updatePlayPauseState()
+            updatePlayPauseState(playButton, pauseButton)
             viewModel.playAnimation()
         }
         
         // Pause button
-        binding.buttonPause.setOnClickListener {
+        pauseButton?.setOnClickListener {
             isPlaying = false
-            updatePlayPauseState()
+            updatePlayPauseState(playButton, pauseButton)
             viewModel.pauseAnimation()
         }
         
         // Reset button
-        binding.buttonReset.setOnClickListener {
+        resetButton?.setOnClickListener {
             viewModel.resetAnimation()
         }
         
         // Loop checkbox
-        binding.checkBoxLoop.setOnCheckedChangeListener { _, isChecked ->
+        loopCheckbox?.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setLooping(isChecked)
         }
         
         // Speed seekbar
-        binding.seekBarSpeed.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        speedSeekbar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 val speed = (progress / 50f) + 0.5f // Range from 0.5 to 2.5
                 viewModel.setSpeed(speed)
@@ -129,21 +182,23 @@ class AnimationFragment : Fragment() {
         })
         
         // Save animation button
-        binding.buttonSaveAnimation.setOnClickListener {
+        saveButton?.setOnClickListener {
             val settings = AnimationSettings(
-                speed = (binding.seekBarSpeed.progress / 50f) + 0.5f,
-                loop = binding.checkBoxLoop.isChecked
+                speed = (speedSeekbar?.progress ?: 50) / 50f + 0.5f,
+                loop = loopCheckbox?.isChecked ?: true
             )
             viewModel.saveAnimation(settings)
         }
+        
+        // All references already stored above
     }
 
     /**
      * Update the play/pause button state.
      */
-    private fun updatePlayPauseState() {
-        binding.buttonPlay.isEnabled = !isPlaying
-        binding.buttonPause.isEnabled = isPlaying
+    private fun updatePlayPauseState(playButton: com.google.android.material.button.MaterialButton?, pauseButton: com.google.android.material.button.MaterialButton?) {
+        playButton?.isEnabled = !isPlaying
+        pauseButton?.isEnabled = isPlaying
     }
 
     /**
@@ -158,7 +213,9 @@ class AnimationFragment : Fragment() {
                     if (model != null) {
                         // In a real app, you would load the 3D model into the renderer
                         renderer?.setModelPath(model.modelStoragePath)
-                        binding.glSurfaceView.requestRender()
+                        if (::glSurfaceView.isInitialized) {
+                            glSurfaceView.requestRender()
+                        }
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -217,7 +274,9 @@ class AnimationFragment : Fragment() {
             animation?.let {
                 // In a real app, you would apply the animation to the renderer
                 renderer?.setAnimation(it.id)
-                binding.glSurfaceView.requestRender()
+                if (::glSurfaceView.isInitialized) {
+                    glSurfaceView.requestRender()
+                }
             }
         }
     }
@@ -226,12 +285,20 @@ class AnimationFragment : Fragment() {
      * Update the animation chips based on available animations.
      */
     private fun updateAnimationChips(animations: List<Animation>) {
-        binding.chipGroupAnimations.removeAllViews()
+        // Create a chip group programmatically if not present in the layout
+        if (!::chipGroupAnimations.isInitialized) {
+            val chipGroup = com.google.android.material.chip.ChipGroup(requireContext())
+            chipGroup.id = View.generateViewId()
+            binding.root.findViewById<ViewGroup>(R.id.control_panel)?.addView(chipGroup)
+            chipGroupAnimations = chipGroup
+        }
+        
+        chipGroupAnimations.removeAllViews()
         
         animations.forEach { animation ->
             val chip = layoutInflater.inflate(
                 R.layout.item_animation_chip,
-                binding.chipGroupAnimations,
+                chipGroupAnimations,
                 false
             ) as Chip
             
@@ -243,23 +310,27 @@ class AnimationFragment : Fragment() {
                 chip.setChipIconResource(android.R.drawable.btn_star)
             }
             
-            binding.chipGroupAnimations.addView(chip)
+            chipGroupAnimations.addView(chip)
         }
         
         // Select the first animation by default if available
         if (animations.isNotEmpty()) {
-            (binding.chipGroupAnimations.getChildAt(0) as? Chip)?.isChecked = true
+            (chipGroupAnimations.getChildAt(0) as? Chip)?.isChecked = true
         }
     }
 
     override fun onResume() {
         super.onResume()
-        binding.glSurfaceView.onResume()
+        if (::glSurfaceView.isInitialized) {
+            glSurfaceView.onResume()
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        binding.glSurfaceView.onPause()
+        if (::glSurfaceView.isInitialized) {
+            glSurfaceView.onPause()
+        }
     }
 
     override fun onDestroyView() {
