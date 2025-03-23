@@ -4202,6 +4202,7 @@ string create_name
 string create_take_photo
 string create_title
 string create_upload
+string default_web_client_id
 string delete
 string dest_title
 string download

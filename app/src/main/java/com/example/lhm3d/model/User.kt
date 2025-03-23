@@ -20,7 +20,25 @@ data class User(
 enum class SubscriptionType {
     FREE_TRIAL,
     PREMIUM_MONTHLY,
-    PREMIUM_YEARLY
+    PREMIUM_YEARLY;
+    
+    /**
+     * Check if the subscription is a premium type
+     */
+    fun isPremium(): Boolean {
+        return this == PREMIUM_MONTHLY || this == PREMIUM_YEARLY
+    }
+    
+    /**
+     * Convert to ModelTier for rendering quality settings
+     */
+    fun toModelTier(): com.example.lhm3d.data.model.ModelTier {
+        return if (isPremium()) {
+            com.example.lhm3d.data.model.ModelTier.PREMIUM
+        } else {
+            com.example.lhm3d.data.model.ModelTier.FREE
+        }
+    }
 }
 
 /**

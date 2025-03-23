@@ -9,6 +9,7 @@ import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.PurchasesResponseListener
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
@@ -111,11 +112,13 @@ class BillingService(private val context: Context) : PurchasesUpdatedListener {
                 .setProductType(BillingClient.ProductType.SUBS)
                 .build()
             
-            val result = billingClient.queryPurchasesAsync(params)
-            
-            if (result.billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                processPurchases(result.purchasesList)
-            }
+            billingClient.queryPurchasesAsync(params, object : PurchasesResponseListener {
+                override fun onQueryPurchasesResponse(billingResult: BillingResult, purchasesList: List<Purchase>) {
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                        processPurchases(purchasesList)
+                    }
+                }
+            })
         }
     }
 

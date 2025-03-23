@@ -5,21 +5,9 @@ import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 /**
- * Processing status of a 3D model
+ * Model quality tier based on subscription level
  */
-enum class ProcessingStatus {
-    UPLOADING,      // Image is being uploaded
-    QUEUED,         // Waiting in processing queue
-    PROCESSING,     // Being processed by LHM algorithm
-    COMPLETED,      // Processing finished successfully
-    FAILED,         // Processing failed
-    CANCELLED       // Processing was cancelled
-}
-
-/**
- * Subscription type for model creation
- */
-enum class SubscriptionType {
+enum class ModelTier {
     FREE,           // Free tier with limited features
     PREMIUM         // Premium tier with all features
 }
@@ -39,7 +27,7 @@ data class Model3D(
     val sourceImageUrl: String = "",
     val modelUrl: String = "",
     val thumbnailUrl: String = "",
-    val subscriptionType: SubscriptionType = SubscriptionType.FREE,
+    val modelTier: ModelTier = ModelTier.FREE,
     val isPublic: Boolean = false,
     val isRigged: Boolean = false,
     val hasAnimation: Boolean = false,

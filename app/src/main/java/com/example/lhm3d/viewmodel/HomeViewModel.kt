@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lhm3d.model.Model3D
+import com.example.lhm3d.data.model.Model3D
 import com.example.lhm3d.service.FirebaseService
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

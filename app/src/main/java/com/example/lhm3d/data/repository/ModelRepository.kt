@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.example.lhm3d.data.model.Model3D
 import com.example.lhm3d.data.model.ProcessingStatus
-import com.example.lhm3d.data.model.SubscriptionType
+import com.example.lhm3d.data.model.ModelTier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -50,7 +50,7 @@ class ModelRepository(private val context: Context) {
         description: String,
         imageUri: Uri,
         isPublic: Boolean = false,
-        subscriptionType: SubscriptionType = SubscriptionType.FREE
+        modelTier: ModelTier = ModelTier.FREE
     ): Flow<String> = flow {
         // Create initial model object
         val currentUser = firebaseManager.getCurrentUser()
@@ -62,7 +62,7 @@ class ModelRepository(private val context: Context) {
             lastModified = Date(),
             status = ProcessingStatus.UPLOADING,
             isPublic = isPublic,
-            subscriptionType = subscriptionType
+            modelTier = modelTier
         )
         
         // Save model to get ID

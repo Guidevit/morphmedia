@@ -37,7 +37,6 @@ class CreateFragment : Fragment() {
     private var selectedImageFile: File? = null
     
     // UI elements
-    private var takePhotoButton: com.google.android.material.button.MaterialButton? = null
     private var uploadButton: com.google.android.material.button.MaterialButton? = null
     private var createButton: com.google.android.material.button.MaterialButton? = null
     private var progressBar: android.widget.ProgressBar? = null
@@ -116,8 +115,6 @@ class CreateFragment : Fragment() {
 
     private fun setupUI() {
         // Find control elements
-        // Create a camera button programmatically if needed
-        val takePhotoButton = null // Temporarily removed camera button reference
         val uploadButton = binding.root.findViewById<com.google.android.material.button.MaterialButton>(R.id.upload_button)
         val createButton = binding.root.findViewById<com.google.android.material.button.MaterialButton>(R.id.create_button)
         val progressBar = binding.root.findViewById<android.widget.ProgressBar>(R.id.loading_indicator)
@@ -129,7 +126,6 @@ class CreateFragment : Fragment() {
         val switchPublic = null // Temporarily removed switch reference
         
         // Store references
-        this.takePhotoButton = takePhotoButton
         this.uploadButton = uploadButton
         this.createButton = createButton
         this.progressBar = progressBar
@@ -139,19 +135,13 @@ class CreateFragment : Fragment() {
         this.editTextDescription = editTextDescription
         this.switchPublic = switchPublic
         
-        // Set up take photo button
-        takePhotoButton?.setOnClickListener {
-            checkCameraPermission()
+        // Handle click events
+        if (uploadButton != null) {
+            uploadButton.setOnClickListener { checkStoragePermission() }
         }
         
-        // Set up upload button
-        uploadButton?.setOnClickListener {
-            checkStoragePermission()
-        }
-        
-        // Set up create button
-        createButton?.setOnClickListener {
-            submitForm()
+        if (createButton != null) {
+            createButton.setOnClickListener { submitForm() }
         }
     }
     

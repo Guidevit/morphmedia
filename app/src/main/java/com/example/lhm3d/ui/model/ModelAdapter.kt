@@ -43,6 +43,7 @@ class ModelAdapter(private val onItemClick: (String) -> Unit) :
             
             // Set status text and color based on processing status
             val statusText = when (model.status) {
+                ProcessingStatus.PENDING -> "Pending..."
                 ProcessingStatus.UPLOADING -> "Uploading..."
                 ProcessingStatus.QUEUED -> "Queued for processing..."
                 ProcessingStatus.PROCESSING -> "Processing..."

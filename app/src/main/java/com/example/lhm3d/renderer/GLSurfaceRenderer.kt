@@ -55,8 +55,12 @@ class GLSurfaceRenderer(private val context: Context) : GLSurfaceView.Renderer {
         // Update animation
         model3DRenderer.updateAnimation(deltaTime)
         
+        // Get viewport dimensions
+        val viewport = IntArray(4)
+        GLES20.glGetIntegerv(GLES20.GL_VIEWPORT, viewport, 0)
+        
         // Draw the model
-        model3DRenderer.draw(GLES20.glGetInteger(GLES20.GL_VIEWPORT), GLES20.glGetInteger(GLES20.GL_VIEWPORT + 2), deltaTime)
+        model3DRenderer.draw(viewport[2], viewport[3], deltaTime)
     }
 
     /**

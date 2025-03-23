@@ -1,0 +1,19 @@
+> Task :app:compileDebugKotlin
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/model/Model3D.kt:10:12 Redeclaration: ProcessingStatus
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/model/ProcessingStatus.kt:6:12 Redeclaration: ProcessingStatus
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/remote/LhmApiService.kt:30:46 Unresolved reference: currentUser
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/remote/LhmApiService.kt:64:46 Unresolved reference: currentUser
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/remote/LhmApiService.kt:78:52 Unresolved reference: getModelsCollection
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/remote/LhmApiService.kt:102:41 Unresolved reference: getModelsCollection
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/remote/LhmApiService.kt:107:85 Unresolved reference: PENDING
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/remote/LhmApiService.kt:111:34 Unresolved reference: PENDING
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/repository/FirebaseManager.kt:38:56 Unresolved reference: default_web_client_id
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/repository/LhmApiService.kt:6:37 Unresolved reference: ModelQuality
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/repository/LhmApiService.kt:36:18 Unresolved reference: ModelQuality
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/data/repository/LhmApiService.kt:36:33 Unresolved reference: ModelQuality
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/renderer/GLSurfaceRenderer.kt:59:37 Unresolved reference: glGetInteger
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/renderer/GLSurfaceRenderer.kt:59:78 Unresolved reference: glGetInteger
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/service/BillingService.kt:114:40 None of the following functions can be called with the arguments supplied: 
+public abstract fun queryPurchasesAsync(p0: QueryPurchasesParams, p1: PurchasesResponseListener): Unit defined in com.android.billingclient.api.BillingClient
+public abstract fun queryPurchasesAsync(p0: String, p1: PurchasesResponseListener): Unit defined in com.android.billingclient.api.BillingClient
+e: file:///home/runner/workspace/app/src/main/java/com/example/lhm3d/ui/create/CreateFragment.kt:143:26 Unresolved reference: setOnClickListener

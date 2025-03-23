@@ -27,7 +27,7 @@ class LhmApiService(private val firebaseManager: FirebaseManager) {
             val data = hashMapOf(
                 "modelId" to modelId,
                 "imageUrl" to imageUrl,
-                "userId" to (firebaseManager.currentUser?.uid ?: "")
+                "userId" to (firebaseManager.getCurrentUser()?.uid ?: "")
             )
             
             // Call the Firebase Cloud Function
@@ -61,7 +61,7 @@ class LhmApiService(private val firebaseManager: FirebaseManager) {
         return try {
             val data = hashMapOf(
                 "modelId" to modelId,
-                "userId" to (firebaseManager.currentUser?.uid ?: ""),
+                "userId" to (firebaseManager.getCurrentUser()?.uid ?: ""),
                 "animation" to animationData
             )
             
@@ -75,11 +75,7 @@ class LhmApiService(private val firebaseManager: FirebaseManager) {
             val success = result["success"] as? Boolean ?: false
             if (success) {
                 // Get the updated model from Firebase
-                val updatedModel = firebaseManager.getModelsCollection()
-                    .document(modelId)
-                    .get()
-                    .await()
-                    .toObject(Model3D::class.java)
+                val updatedModel = firebaseManager.getModelById(modelId)
                 
                 Result.success(updatedModel)
             } else {
@@ -99,17 +95,8 @@ class LhmApiService(private val firebaseManager: FirebaseManager) {
      */
     suspend fun checkModelStatus(modelId: String): ProcessingStatus {
         return try {
-            val model = firebaseManager.getModelsCollection()
-                .document(modelId)
-                .get()
-                .await()
-            
-            val statusStr = model.getString("processingStatus") ?: ProcessingStatus.PENDING.name
-            try {
-                ProcessingStatus.valueOf(statusStr)
-            } catch (e: Exception) {
-                ProcessingStatus.PENDING
-            }
+            val model = firebaseManager.getModelById(modelId)
+            model?.status ?: ProcessingStatus.PENDING
         } catch (e: Exception) {
             ProcessingStatus.FAILED
         }

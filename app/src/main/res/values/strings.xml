@@ -90,4 +90,7 @@
     <string name="model_ready">Your model is ready!</string>
     <string name="animate">Animate</string>
     <string name="error_processing">Error processing model</string>
+    
+    <!-- Firebase -->
+    <string name="default_web_client_id">651838442656-p27k58pov6dl05fqmafak15fgvslr52n.apps.googleusercontent.com</string>
 </resources>
