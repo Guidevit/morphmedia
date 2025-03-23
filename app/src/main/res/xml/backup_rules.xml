@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude specific shared preferences that contain user authentication information -->
+    <exclude domain="sharedpref" path="auth.xml"/>
+    <exclude domain="sharedpref" path="sensitive_user_data.xml"/>
+</full-backup-content>

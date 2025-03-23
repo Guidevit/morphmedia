@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.lhm3d.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_create"
+            app:destination="@id/navigation_create" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_gallery"
+        android:name="com.example.lhm3d.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery">
+        <action
+            android:id="@+id/action_gallery_to_modelViewer"
+            app:destination="@id/model_viewer_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_create"
+        android:name="com.example.lhm3d.ui.create.CreateModelFragment"
+        android:label="@string/menu_create"
+        tools:layout="@layout/fragment_create_model">
+        <action
+            android:id="@+id/action_create_to_modelViewer"
+            app:destination="@id/model_viewer_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.lhm3d.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_to_login"
+            app:destination="@id/login_fragment" />
+        <action
+            android:id="@+id/action_profile_to_subscription"
+            app:destination="@id/subscription_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/model_viewer_fragment"
+        android:name="com.example.lhm3d.ui.viewer.ModelViewerFragment"
+        android:label="@string/model_details"
+        tools:layout="@layout/fragment_model_viewer">
+        <argument
+            android:name="modelId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_modelViewer_to_animation"
+            app:destination="@id/animation_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.example.lhm3d.ui.auth.LoginFragment"
+        android:label="@string/login_title"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/register_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_fragment"
+        android:name="com.example.lhm3d.ui.auth.RegisterFragment"
+        android:label="@string/register_title"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/login_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/animation_fragment"
+        android:name="com.example.lhm3d.ui.animation.AnimationControlFragment"
+        android:label="@string/animation_title"
+        tools:layout="@layout/fragment_animation_control">
+        <argument
+            android:name="modelId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/subscription_fragment"
+        android:name="com.example.lhm3d.ui.subscription.SubscriptionFragment"
+        android:label="@string/subscription_title"
+        tools:layout="@layout/fragment_subscription" />
+
+</navigation>
