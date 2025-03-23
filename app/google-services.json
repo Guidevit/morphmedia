@@ -1,44 +1,26 @@
 {
   "project_info": {
-    "project_number": "123456789012",
-    "project_id": "lhm-3d-creator",
-    "storage_bucket": "lhm-3d-creator.appspot.com"
+    "project_number": "651838442656",
+    "project_id": "lhm3d-eae54",
+    "storage_bucket": "lhm3d-eae54.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123456789012:android:abcdef1234567890",
+        "mobilesdk_app_id": "1:651838442656:android:34702ffd2c635f5acacdc5",
         "android_client_info": {
           "package_name": "com.example.lhm3d"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "123456789012-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.lhm3d",
-            "certificate_hash": "1234567890abcdef1234567890abcdef12345678"
-          }
-        },
-        {
-          "client_id": "123456789012-abcdefghijklmnopqrstuvwxyz654321.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyABcDeFgHiJkLmNoPqRsTuVwXyZ1234567"
+          "current_key": "AIzaSyAyidWMd7AJ4IMGFCNuNXrSs0rgO41y_h4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "123456789012-abcdefghijklmnopqrstuvwxyz654321.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

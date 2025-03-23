@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="default_web_client_id" translatable="false">123456789012-abcdefghijklmnopqrstuvwxyz654321.apps.googleusercontent.com</string>
-    <string name="gcm_defaultSenderId" translatable="false">123456789012</string>
-    <string name="google_api_key" translatable="false">AIzaSyABcDeFgHiJkLmNoPqRsTuVwXyZ1234567</string>
-    <string name="google_app_id" translatable="false">1:123456789012:android:abcdef1234567890</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyABcDeFgHiJkLmNoPqRsTuVwXyZ1234567</string>
-    <string name="google_storage_bucket" translatable="false">lhm-3d-creator.appspot.com</string>
-    <string name="project_id" translatable="false">lhm-3d-creator</string>
+    <string name="gcm_defaultSenderId" translatable="false">651838442656</string>
+    <string name="google_api_key" translatable="false">AIzaSyAyidWMd7AJ4IMGFCNuNXrSs0rgO41y_h4</string>
+    <string name="google_app_id" translatable="false">1:651838442656:android:34702ffd2c635f5acacdc5</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAyidWMd7AJ4IMGFCNuNXrSs0rgO41y_h4</string>
+    <string name="google_storage_bucket" translatable="false">lhm3d-eae54.firebasestorage.app</string>
+    <string name="project_id" translatable="false">lhm3d-eae54</string>
 </resources>
