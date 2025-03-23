@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.lhm3d.app-mergeDebugResources-59:/values-small-v4/values-small-v4.xml",
+            "outputFile": "com.example.lhm3d.app-mergeDebugResources-60:/values-small-v4/values-small-v4.xml",
             "map": [
                 {
                     "source": "/home/runner/.gradle/caches/transforms-3/f91f384591b20d15789fc46478b487e9/transformed/material-1.11.0/res/values-small-v4/values-small-v4.xml",

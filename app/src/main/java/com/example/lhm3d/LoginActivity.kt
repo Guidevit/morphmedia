@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -15,6 +16,13 @@ import com.example.lhm3d.viewmodel.UserViewModel
  * This is the entry point of the application.
  */
 class LoginActivity : AppCompatActivity() {
+    
+    // Launch the Google sign-in activity and handle the result
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        viewModel.handleGoogleSignInResult(result.data)
+    }
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: UserViewModel by viewModels()
@@ -64,12 +72,8 @@ class LoginActivity : AppCompatActivity() {
 
         // Google sign-in button
         binding.buttonGoogleSignIn.setOnClickListener {
-            // Google Sign In would be implemented here
-            Toast.makeText(
-                this,
-                "Google Sign In is not implemented in this demo",
-                Toast.LENGTH_SHORT
-            ).show()
+            val signInIntent = viewModel.getGoogleSignInIntent()
+            googleSignInLauncher.launch(signInIntent)
         }
 
         // Forgot password text

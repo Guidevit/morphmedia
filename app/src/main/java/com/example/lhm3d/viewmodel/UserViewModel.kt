@@ -1,13 +1,21 @@
 package com.example.lhm3d.viewmodel
 
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lhm3d.data.repository.FirebaseManager
 import com.example.lhm3d.model.SubscriptionType
 import com.example.lhm3d.model.User
 import com.example.lhm3d.model.UserSettings
+import com.example.lhm3d.repository.UserRepository
 import com.example.lhm3d.service.FirebaseService
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -17,6 +25,8 @@ import kotlinx.coroutines.launch
 class UserViewModel : ViewModel() {
     
     private val firebaseService = FirebaseService()
+    private val userRepository = UserRepository()
+    private lateinit var googleSignInClient: GoogleSignInClient
     
     // Authentication state
     private val _authState = MutableLiveData<Result<Unit>?>()
@@ -134,5 +144,43 @@ class UserViewModel : ViewModel() {
      */
     fun clearSettingsUpdateResult() {
         _settingsUpdateResult.value = null
+    }
+    
+    /**
+     * Get Google Sign-In Intent.
+     */
+    fun getGoogleSignInIntent(): Intent {
+        // Configure Google Sign In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("web_client_id") // Replace with your actual web client ID
+            .requestEmail()
+            .build()
+        
+        googleSignInClient = GoogleSignIn.getClient(FirebaseManager.getInstance().getContext(), gso)
+        return googleSignInClient.signInIntent
+    }
+    
+    /**
+     * Handle Google Sign-In result.
+     */
+    fun handleGoogleSignInResult(data: Intent?) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                val account = task.getResult(Exception::class.java)
+                val idToken = account.idToken
+                
+                // Firebase auth with Google
+                val credential = GoogleAuthProvider.getCredential(idToken, null)
+                val authResult = userRepository.signInWithCredential(credential)
+                
+                _authState.value = Result.success(Unit)
+            } catch (e: Exception) {
+                _authState.value = Result.failure(e)
+            } finally {
+                _isLoading.value = false
+            }
+        }
     }
 }

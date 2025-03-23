@@ -148,4 +148,31 @@ class UserRepository {
             return@withContext Result.failure(e)
         }
     }
+    
+    /**
+     * Sign in with credentials (Google, Facebook, etc.).
+     */
+    suspend fun signInWithCredential(credential: com.google.firebase.auth.AuthCredential): Result<FirebaseUser> = withContext(Dispatchers.IO) {
+        try {
+            val authResult = auth.signInWithCredential(credential).await()
+            authResult.user?.let { firebaseUser ->
+                // Check if this is a new user or existing user
+                val userDoc = usersCollection.document(firebaseUser.uid).get().await()
+                if (!userDoc.exists()) {
+                    // Create a new user document for first-time Google sign-in
+                    val user = User(
+                        id = firebaseUser.uid,
+                        email = firebaseUser.email ?: "",
+                        displayName = firebaseUser.displayName ?: "User",
+                        subscription = SubscriptionType.FREE_TRIAL,
+                        remainingCredits = 5
+                    )
+                    usersCollection.document(firebaseUser.uid).set(user).await()
+                }
+                return@withContext Result.success(firebaseUser)
+            } ?: return@withContext Result.failure(Exception("Authentication failed"))
+        } catch (e: Exception) {
+            return@withContext Result.failure(e)
+        }
+    }
 }

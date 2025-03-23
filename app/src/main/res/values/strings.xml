@@ -7,6 +7,15 @@
     <string name="nav_create">Create</string>
     <string name="nav_gallery">Gallery</string>
     <string name="nav_profile">Profile</string>
+    <string name="nav_models">Models</string>
+    <string name="title_home">Home</string>
+    <string name="title_create">Create</string>
+    <string name="title_gallery">Gallery</string>
+    <string name="title_profile">Profile</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="model_details">Model Details</string>
+    <string name="edit_profile">Edit Profile</string>
     
     <!-- Login -->
     <string name="login_title">Welcome Back</string>
@@ -67,4 +76,16 @@
     <string name="delete">Delete</string>
     <string name="share">Share</string>
     <string name="download">Download</string>
+    
+    <!-- Model Creation and Processing -->
+    <string name="create_model">Create 3D Model</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="generate_model">Generate Model</string>
+    <string name="model_options">Model Options</string>
+    <string name="processing">Processing...</string>
+    <string name="title_preview">Model Preview</string>
+    <string name="model_ready">Your model is ready!</string>
+    <string name="animate">Animate</string>
+    <string name="error_processing">Error processing model</string>
 </resources>

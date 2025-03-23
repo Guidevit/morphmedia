@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.lhm3d.app-mergeDebugResources-59:/values-zh-rHK/values-zh-rHK.xml",
+            "outputFile": "com.example.lhm3d.app-mergeDebugResources-60:/values-zh-rHK/values-zh-rHK.xml",
             "map": [
                 {
                     "source": "/home/runner/.gradle/caches/transforms-3/f91f384591b20d15789fc46478b487e9/transformed/material-1.11.0/res/values-zh-rHK/values-zh-rHK.xml",
@@ -57,23 +57,6 @@
                     }
                 },
                 {
-                    "source": "/home/runner/.gradle/caches/transforms-3/61e8536ce8735fbf50c588e6285661a8/transformed/jetified-play-services-basement-18.1.0/res/values-zh-rHK/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "199",
-                        "endColumns": "103",
-                        "endOffsets": "302"
-                    },
-                    "to": {
-                        "startLines": "56",
-                        "startColumns": "4",
-                        "startOffsets": "4990",
-                        "endColumns": "107",
-                        "endOffsets": "5093"
-                    }
-                },
-                {
                     "source": "/home/runner/.gradle/caches/transforms-3/14496509f056c74d25d342e5c1d756c7/transformed/core-1.12.0/res/values-zh-rHK/values-zh-rHK.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -122,6 +105,23 @@
                         "startOffsets": "5952,6175,6267,6368",
                         "endColumns": "82,91,100,92",
                         "endOffsets": "6030,6262,6363,6456"
+                    }
+                },
+                {
+                    "source": "/home/runner/.gradle/caches/transforms-3/39ebf8750624991182d5344a20ff4e82/transformed/jetified-play-services-basement-18.2.0/res/values-zh-rHK/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "199",
+                        "endColumns": "103",
+                        "endOffsets": "302"
+                    },
+                    "to": {
+                        "startLines": "56",
+                        "startColumns": "4",
+                        "startOffsets": "4990",
+                        "endColumns": "107",
+                        "endOffsets": "5093"
                     }
                 }
             ]

@@ -1,11 +1,19 @@
 package com.example.lhm3d.data.repository
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
+import com.example.lhm3d.R
 import com.example.lhm3d.data.model.Model3D
 import com.example.lhm3d.data.model.ProcessingStatus
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
@@ -22,6 +30,17 @@ class FirebaseManager private constructor(private val context: Context) {
     private val firestore = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
     
+    // Google Sign In
+    private val googleSignInClient: GoogleSignInClient
+    
+    init {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(context.getString(R.string.default_web_client_id)) // Web client ID from google-services.json
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(context, gso)
+    }
+    
     // Collection references
     private val modelsCollection = firestore.collection("models")
     private val usersCollection = firestore.collection("users")
@@ -35,6 +54,14 @@ class FirebaseManager private constructor(private val context: Context) {
                 instance ?: FirebaseManager(context).also { instance = it }
             }
         }
+        
+        fun getInstance(): FirebaseManager {
+            return instance ?: throw IllegalStateException("FirebaseManager must be initialized with a context first")
+        }
+    }
+    
+    fun getContext(): Context {
+        return context
     }
     
     /**
@@ -45,7 +72,37 @@ class FirebaseManager private constructor(private val context: Context) {
     
     fun isUserLoggedIn(): Boolean = auth.currentUser != null
     
+    fun getGoogleSignInIntent(): Intent = googleSignInClient.signInIntent
+    
+    suspend fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        auth.signInWithCredential(credential).await()
+        
+        // Save or update user profile in Firestore
+        val user = auth.currentUser
+        if (user != null) {
+            val userData = hashMapOf(
+                "uid" to user.uid,
+                "displayName" to user.displayName,
+                "email" to user.email,
+                "photoUrl" to (user.photoUrl?.toString() ?: ""),
+                "lastLogin" to System.currentTimeMillis()
+            )
+            usersCollection.document(user.uid).set(userData).await()
+        }
+    }
+    
+    fun handleSignInResult(data: Intent?): GoogleSignInAccount? {
+        return try {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            task.getResult(ApiException::class.java)
+        } catch (e: ApiException) {
+            null
+        }
+    }
+    
     suspend fun signOut() {
+        googleSignInClient.signOut().await()
         auth.signOut()
     }
     

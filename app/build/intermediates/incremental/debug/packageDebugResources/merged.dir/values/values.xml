@@ -9,6 +9,9 @@
     <color name="divider">#1F000000</color>
     <color name="error">#B00020</color>
     <color name="errorColor">#B00020</color>
+    <color name="gray">#757575</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="ic_launcher_background">#6200EE</color>
     <color name="iconTint">#8A000000</color>
     <color name="infoColor">#2196F3</color>
     <color name="navigationBarColor">@color/colorPrimary</color>
@@ -22,27 +25,34 @@
     <color name="statusBar">@color/colorPrimaryDark</color>
     <color name="successColor">#4CAF50</color>
     <color name="surface">#FFFFFF</color>
+    <color name="surfaceColor">@color/surface</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="textColorDisabled">#61000000</color>
     <color name="textColorPrimary">#DE000000</color>
     <color name="textColorSecondary">#99000000</color>
+    <color name="textPrimary">@color/textColorPrimary</color>
+    <color name="textSecondary">@color/textColorSecondary</color>
     <color name="toolbarColor">@color/colorPrimary</color>
     <color name="warningColor">#FFA000</color>
     <color name="white">#FFFFFFFF</color>
+    <string name="animate">Animate</string>
     <string name="animation_title">Animate Your Model</string>
     <string name="app_name">LHM 3D</string>
     <string name="cancel">Cancel</string>
     <string name="create_button">Create 3D Model</string>
     <string name="create_description">Description (optional)</string>
+    <string name="create_model">Create 3D Model</string>
     <string name="create_name">Model Name</string>
     <string name="create_title">Create New Model</string>
     <string name="create_upload">Upload Image</string>
     <string name="default_web_client_id" translatable="false">123456789012-abcdefghijklmnopqrstuvwxyz654321.apps.googleusercontent.com</string>
     <string name="delete">Delete</string>
     <string name="download">Download</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="email_hint">Email</string>
     <string name="error">Error</string>
+    <string name="error_processing">Error processing model</string>
     <string name="featured_models">Featured Models</string>
     <string name="filter_all">All</string>
     <string name="filter_favorites">Favorites</string>
@@ -52,24 +62,31 @@
     <string name="gallery_empty">You haven\'t created any models yet</string>
     <string name="gallery_title">Your Models</string>
     <string name="gcm_defaultSenderId" translatable="false">123456789012</string>
+    <string name="generate_model">Generate Model</string>
     <string name="google_api_key" translatable="false">AIzaSyABcDeFgHiJkLmNoPqRsTuVwXyZ1234567</string>
     <string name="google_app_id" translatable="false">1:123456789012:android:abcdef1234567890</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyABcDeFgHiJkLmNoPqRsTuVwXyZ1234567</string>
     <string name="google_storage_bucket" translatable="false">lhm-3d-creator.appspot.com</string>
     <string name="loading">Loading…</string>
+    <string name="login">Login</string>
     <string name="login_button">Login</string>
     <string name="login_subtitle">Sign in to continue</string>
     <string name="login_title">Welcome Back</string>
     <string name="login_with_google">Continue with Google</string>
     <string name="loop">Loop</string>
+    <string name="model_details">Model Details</string>
+    <string name="model_options">Model Options</string>
+    <string name="model_ready">Your model is ready!</string>
     <string name="nav_create">Create</string>
     <string name="nav_gallery">Gallery</string>
     <string name="nav_home">Home</string>
+    <string name="nav_models">Models</string>
     <string name="nav_profile">Profile</string>
     <string name="password_hint">Password</string>
     <string name="pause">Pause</string>
     <string name="play">Play</string>
     <string name="premium_benefits">Premium Benefits</string>
+    <string name="processing">Processing...</string>
     <string name="profile_help">Help &amp; Support</string>
     <string name="profile_logout">Logout</string>
     <string name="profile_settings">Settings</string>
@@ -82,12 +99,20 @@
     <string name="save">Save</string>
     <string name="save_animation">Save Animation</string>
     <string name="share">Share</string>
+    <string name="signup">Sign Up</string>
     <string name="signup_button">Sign Up</string>
     <string name="speed">Speed</string>
     <string name="success">Success</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="title_create">Create</string>
+    <string name="title_gallery">Gallery</string>
+    <string name="title_home">Home</string>
+    <string name="title_preview">Model Preview</string>
+    <string name="title_profile">Profile</string>
     <string name="tutorial_button">Watch Tutorial</string>
     <string name="tutorial_title">Learn how to create amazing 3D animations</string>
     <string name="upgrade_button">Upgrade to Premium</string>
+    <string name="upload_image">Upload Image</string>
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -175,5 +200,18 @@
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:windowBackground">@color/primary</item>
+    </style>
+    <style name="Widget.LHM3D.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+    <style name="Widget.MaterialComponents.Chip.Info" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:textSize">14sp</item>
+        <item name="chipBackgroundColor">@color/gray_200</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipMinHeight">32dp</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 </resources>

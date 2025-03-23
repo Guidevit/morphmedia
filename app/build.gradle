@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
 }
@@ -11,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.lhm3d"
-        minSdk 24
+        minSdk 26
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -39,11 +40,6 @@ android {
         viewBinding true
         dataBinding true
     }
-    
-    // Temporary fix for AGP issue
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
 }
 
 dependencies {
@@ -64,6 +60,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-functions'
+    
+    // Google Play services auth
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
     
     // Coroutines for asynchronous tasks
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'

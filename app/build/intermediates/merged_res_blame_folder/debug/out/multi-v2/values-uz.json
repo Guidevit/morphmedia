@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.lhm3d.app-mergeDebugResources-59:/values-uz/values-uz.xml",
+            "outputFile": "com.example.lhm3d.app-mergeDebugResources-60:/values-uz/values-uz.xml",
             "map": [
                 {
                     "source": "/home/runner/.gradle/caches/transforms-3/f91f384591b20d15789fc46478b487e9/transformed/material-1.11.0/res/values-uz/values-uz.xml",
@@ -37,23 +37,6 @@
                         "startOffsets": "4467,4572,4722,4851,4960,5105,5238,5358,5614,5786,5894,6053,6185,6339,6501,6567,6628",
                         "endColumns": "104,149,128,108,144,132,119,105,171,107,158,131,153,161,65,60,79",
                         "endOffsets": "4567,4717,4846,4955,5100,5233,5353,5459,5781,5889,6048,6180,6334,6496,6562,6623,6703"
-                    }
-                },
-                {
-                    "source": "/home/runner/.gradle/caches/transforms-3/61e8536ce8735fbf50c588e6285661a8/transformed/jetified-play-services-basement-18.1.0/res/values-uz/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "145",
-                        "endOffsets": "340"
-                    },
-                    "to": {
-                        "startLines": "56",
-                        "startColumns": "4",
-                        "startOffsets": "5464",
-                        "endColumns": "149",
-                        "endOffsets": "5609"
                     }
                 },
                 {
@@ -122,6 +105,23 @@
                         "startOffsets": "11879,11980",
                         "endColumns": "100,121",
                         "endOffsets": "11975,12097"
+                    }
+                },
+                {
+                    "source": "/home/runner/.gradle/caches/transforms-3/39ebf8750624991182d5344a20ff4e82/transformed/jetified-play-services-basement-18.2.0/res/values-uz/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "145",
+                        "endOffsets": "340"
+                    },
+                    "to": {
+                        "startLines": "56",
+                        "startColumns": "4",
+                        "startOffsets": "5464",
+                        "endColumns": "149",
+                        "endOffsets": "5609"
                     }
                 }
             ]

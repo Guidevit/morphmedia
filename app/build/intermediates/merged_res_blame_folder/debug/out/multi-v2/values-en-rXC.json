@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.lhm3d.app-mergeDebugResources-59:/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "com.example.lhm3d.app-mergeDebugResources-60:/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
                     "source": "/home/runner/.gradle/caches/transforms-3/14496509f056c74d25d342e5c1d756c7/transformed/core-1.12.0/res/values-en-rXC/values-en-rXC.xml",

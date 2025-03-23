@@ -1,58 +1,54 @@
 [
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/item_animation.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/item_animation.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/activity_login.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/activity_login.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/item_model_card.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/item_model_card.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/item_animation.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/item_animation.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/fragment_home.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/fragment_home.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/fragment_profile.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/fragment_profile.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/item_model.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/item_model.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/fragment_gallery.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/fragment_gallery.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/activity_main.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/activity_main.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/fragment_animation.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/fragment_animation.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/activity_login.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/activity_login.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/fragment_create.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/fragment_create.xml"
     },
     {
-        "merged": "com.example.lhm3d.app-mergeDebugResources-60:/layout/activity_main.xml",
-        "source": "com.example.lhm3d.app-main-63:/layout/activity_main.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/fragment_preview.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/fragment_preview.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/fragment_profile.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/fragment_profile.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/activity_main.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/activity_main.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/fragment_gallery.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/fragment_gallery.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/item_model_card.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/item_model_card.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/item_animation_chip.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/item_animation_chip.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/item_animation_chip.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/item_animation_chip.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/fragment_create_model.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/fragment_create_model.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/fragment_create_model.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/fragment_create_model.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/fragment_create.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/fragment_create.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/item_model.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/item_model.xml"
     },
     {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/fragment_animation.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/fragment_animation.xml"
-    },
-    {
-        "merged": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-mergeDebugResources-60:/layout/fragment_preview.xml",
-        "source": "/home/runner/.gradle/daemon/8.4/com.example.lhm3d.app-main-63:/layout/fragment_preview.xml"
+        "merged": "com.example.lhm3d.app-mergeDebugResources-61:/layout/fragment_home.xml",
+        "source": "com.example.lhm3d.app-main-64:/layout/fragment_home.xml"
     }
 ]

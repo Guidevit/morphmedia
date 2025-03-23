@@ -1,6 +1,7 @@
 package com.example.lhm3d
 
 import android.app.Application
+import com.example.lhm3d.data.repository.FirebaseManager
 import com.google.firebase.FirebaseApp
 
 /**
@@ -14,5 +15,8 @@ class LhmApplication : Application() {
         
         // Initialize Firebase
         FirebaseApp.initializeApp(this)
+        
+        // Initialize FirebaseManager
+        FirebaseManager.getInstance(this)
     }
 }

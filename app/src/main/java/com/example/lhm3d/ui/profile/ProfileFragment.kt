@@ -40,7 +40,6 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         setupClickListeners()
-        setupSwitchListeners()
         observeViewModel()
         
         // Load user data
@@ -51,51 +50,19 @@ class ProfileFragment : Fragment() {
      * Set up click listeners for buttons.
      */
     private fun setupClickListeners() {
-        // Edit profile button
-        binding.buttonEditProfile.setOnClickListener {
-            // In a real app, you would show an edit profile dialog or navigate to an edit profile screen
-            Toast.makeText(
-                requireContext(),
-                "Edit profile functionality would be implemented here",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        
         // Upgrade button
-        binding.buttonUpgrade.setOnClickListener {
+        binding.upgradeButton.setOnClickListener {
             showPremiumOptions()
         }
         
         // Logout button
-        binding.buttonLogout.setOnClickListener {
+        binding.logoutButton.setOnClickListener {
             viewModel.signOut()
             navigateToLogin()
         }
     }
 
-    /**
-     * Set up listeners for setting switches.
-     */
-    private fun setupSwitchListeners() {
-        // We'll capture all setting changes and update them together when any changes
-        val settingChangedListener = { _: Boolean -> updateSettingsFromUI() }
-        
-        binding.switchNotifications.setOnCheckedChangeListener { _, _ -> updateSettingsFromUI() }
-        binding.switchAutoSave.setOnCheckedChangeListener { _, _ -> updateSettingsFromUI() }
-        binding.switchHighQuality.setOnCheckedChangeListener { _, _ -> updateSettingsFromUI() }
-    }
-
-    /**
-     * Update user settings from UI controls.
-     */
-    private fun updateSettingsFromUI() {
-        val settings = UserSettings(
-            notifications = binding.switchNotifications.isChecked,
-            autoSave = binding.switchAutoSave.isChecked,
-            highQualityRendering = binding.switchHighQuality.isChecked
-        )
-        viewModel.updateUserSettings(settings)
-    }
+    // We'll implement settings management in a future update
 
     /**
      * Observe the ViewModel's LiveData.
@@ -141,32 +108,30 @@ class ProfileFragment : Fragment() {
      */
     private fun updateUI(user: User) {
         // Update profile info
-        binding.textViewUsername.text = user.displayName
-        binding.textViewEmail.text = user.email
+        binding.profileName.text = user.displayName
+        binding.profileEmail.text = user.email
         
         // Update subscription info
         when (user.subscription) {
             SubscriptionType.FREE_TRIAL -> {
-                binding.textViewCurrentPlan.text = getString(R.string.free_trial)
-                binding.textViewRemainingCredits.text = "Remaining credits: ${user.remainingCredits}/5"
-                binding.buttonUpgrade.visibility = View.VISIBLE
+                binding.subscriptionChip.text = getString(R.string.free_trial)
+                binding.subscriptionDetails.text = "Remaining credits: ${user.remainingCredits}/5"
+                binding.upgradeButton.visibility = View.VISIBLE
             }
             SubscriptionType.PREMIUM_MONTHLY -> {
-                binding.textViewCurrentPlan.text = "Premium Monthly"
-                binding.textViewRemainingCredits.text = "Unlimited credits"
-                binding.buttonUpgrade.visibility = View.GONE
+                binding.subscriptionChip.text = "Premium Monthly"
+                binding.subscriptionDetails.text = "Unlimited credits"
+                binding.upgradeButton.visibility = View.GONE
             }
             SubscriptionType.PREMIUM_YEARLY -> {
-                binding.textViewCurrentPlan.text = "Premium Yearly"
-                binding.textViewRemainingCredits.text = "Unlimited credits"
-                binding.buttonUpgrade.visibility = View.GONE
+                binding.subscriptionChip.text = "Premium Yearly"
+                binding.subscriptionDetails.text = "Unlimited credits"
+                binding.upgradeButton.visibility = View.GONE
             }
         }
         
-        // Update settings
-        binding.switchNotifications.isChecked = user.settings.notifications
-        binding.switchAutoSave.isChecked = user.settings.autoSave
-        binding.switchHighQuality.isChecked = user.settings.highQualityRendering
+        // For now, we don't have switches in our layout, we'll implement them later
+        // when we add the settings page
     }
 
     /**

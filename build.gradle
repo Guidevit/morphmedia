@@ -31,11 +31,7 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
     
-    afterEvaluate {
-        project -> if (project.hasProperty('android')) {
-            project.android.dexOptions.javaMaxHeapSize = "4g"
-        }
-    }
+    // AGP automatically optimizes dexing process - removed dexOptions
 }
 
 // Automatically accept SDK licenses

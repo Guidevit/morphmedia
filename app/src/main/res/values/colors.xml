@@ -41,4 +41,12 @@
     <!-- Additional color aliases needed by styles -->
     <color name="textPrimary">@color/textColorPrimary</color>
     <color name="textSecondary">@color/textColorSecondary</color>
+    
+    <!-- Missing colors referenced in layouts -->
+    <color name="surfaceColor">@color/surface</color>
+    <color name="gray">#757575</color>
+    <color name="gray_200">#EEEEEE</color>
+    
+    <!-- App icon colors -->
+    <color name="ic_launcher_background">#6200EE</color>
 </resources>
