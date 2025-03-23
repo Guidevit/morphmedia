@@ -1,146 +1,130 @@
 package com.example.lhm3d.data.repository
 
-import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.lhm3d.data.model.Model
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.storage.FirebaseStorage
+import com.example.lhm3d.data.model.Model3D
+import com.example.lhm3d.data.model.ProcessingStatus
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
-import java.util.Date
-import java.util.UUID
+import java.io.File
 
-/**
- * Repository for handling Model data operations with Firebase.
- */
 class ModelRepository {
-    private val firestore = FirebaseFirestore.getInstance()
-    private val storage = FirebaseStorage.getInstance()
-    private val auth = FirebaseAuth.getInstance()
-    
-    private val modelsCollection = firestore.collection("models")
-    
-    // Cache of user models
-    private val _userModels = MutableLiveData<List<Model>>()
-    val userModels: LiveData<List<Model>> = _userModels
-    
-    // Cache of community models
-    private val _communityModels = MutableLiveData<List<Model>>()
-    val communityModels: LiveData<List<Model>> = _communityModels
     
     /**
-     * Fetch models created by the current user.
+     * Get a list of recent models
      */
-    suspend fun fetchUserModels() {
-        try {
-            val currentUserId = auth.currentUser?.uid ?: return
-            
-            val snapshots = modelsCollection
-                .whereEqualTo("creatorId", currentUserId)
-                .orderBy("createdAt", Query.Direction.DESCENDING)
-                .get()
-                .await()
-                
-            val models = snapshots.documents.mapNotNull { doc ->
-                doc.toObject(Model::class.java)
-            }
-            
-            _userModels.postValue(models)
-        } catch (e: Exception) {
-            // Handle error
-            _userModels.postValue(emptyList())
-        }
-    }
-    
-    /**
-     * Fetch public models shared by the community.
-     */
-    suspend fun fetchCommunityModels() {
-        try {
-            val snapshots = modelsCollection
-                .whereEqualTo("isPublic", true)
-                .orderBy("createdAt", Query.Direction.DESCENDING)
-                .limit(50) // Limit to recent 50 models
-                .get()
-                .await()
-                
-            val models = snapshots.documents.mapNotNull { doc ->
-                doc.toObject(Model::class.java)
-            }
-            
-            _communityModels.postValue(models)
-        } catch (e: Exception) {
-            // Handle error
-            _communityModels.postValue(emptyList())
-        }
-    }
-    
-    /**
-     * Create a new 3D model from an image.
-     * @param name The name of the model
-     * @param imageUri The URI of the image
-     * @param description Optional description of the model
-     * @return The ID of the created model
-     */
-    suspend fun createModel(name: String, imageUri: Uri, description: String? = null): String {
-        val currentUserId = auth.currentUser?.uid ?: throw IllegalStateException("User not logged in")
-        
-        // Upload image to Firebase Storage
-        val imagePath = "images/${UUID.randomUUID()}.jpg"
-        val imageRef = storage.reference.child(imagePath)
-        imageRef.putFile(imageUri).await()
-        val imageUrl = imageRef.downloadUrl.await().toString()
-        
-        // Create model document
-        val modelId = UUID.randomUUID().toString()
-        val model = Model(
-            id = modelId,
-            name = name,
-            imageUrl = imageUrl,
-            modelUrl = "", // Will be updated after model processing
-            creatorId = currentUserId,
-            createdAt = Date(),
-            description = description
-        )
-        
-        // Save to Firestore
-        modelsCollection.document(modelId).set(model).await()
-        
-        // Queue model for processing (in a real app, this would use Cloud Functions)
-        // For now, we'll simulate this with a delay
-        
-        return modelId
-    }
-    
-    /**
-     * Get a model by ID.
-     * @param modelId The ID of the model to retrieve
-     * @return The model if found, or null
-     */
-    suspend fun getModelById(modelId: String): Model? {
+    suspend fun getRecentModels(limit: Int = 10): List<Model3D> {
         return try {
-            val doc = modelsCollection.document(modelId).get().await()
-            doc.toObject(Model::class.java)
+            val querySnapshot = FirebaseManager.getRecentModelsQuery()
+                .limit(limit.toLong())
+                .get()
+                .await()
+                
+            querySnapshot.documents.mapNotNull { it.toModel() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+    
+    /**
+     * Get a list of popular models
+     */
+    suspend fun getPopularModels(limit: Int = 10): List<Model3D> {
+        return try {
+            val querySnapshot = FirebaseManager.getPopularModelsQuery()
+                .limit(limit.toLong())
+                .get()
+                .await()
+                
+            querySnapshot.documents.mapNotNull { it.toModel() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+    
+    /**
+     * Get a list of user's models
+     */
+    suspend fun getUserModels(): List<Model3D> {
+        return try {
+            val querySnapshot = FirebaseManager.getUserModelsQuery()
+                .get()
+                .await()
+                
+            querySnapshot.documents.mapNotNull { it.toModel() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+    
+    /**
+     * Get a model by ID
+     */
+    suspend fun getModelById(modelId: String): Model3D? {
+        return try {
+            val document = FirebaseManager.getModelsCollection()
+                .document(modelId)
+                .get()
+                .await()
+                
+            document.toModel()
         } catch (e: Exception) {
             null
         }
     }
     
     /**
-     * Update a model's details.
-     * @param model The updated model
+     * Create a new model from an image file
      */
-    suspend fun updateModel(model: Model) {
-        modelsCollection.document(model.id).set(model).await()
+    suspend fun createModelFromImage(name: String, description: String, imageFile: File, isPublic: Boolean): Model3D? {
+        try {
+            // 1. Create a new model document in Firestore
+            val modelData = hashMapOf(
+                "name" to name,
+                "description" to description,
+                "creatorId" to FirebaseManager.getUserId(),
+                "creatorName" to (FirebaseManager.getCurrentUser()?.displayName ?: "Anonymous"),
+                "status" to ProcessingStatus.QUEUED.name,
+                "isPublic" to isPublic,
+                "createdAt" to com.google.firebase.Timestamp.now(),
+                "updatedAt" to com.google.firebase.Timestamp.now(),
+                "viewCount" to 0,
+                "likeCount" to 0,
+                "tags" to listOf<String>()
+            )
+            
+            val modelRef = FirebaseManager.getModelsCollection().document()
+            val modelId = modelRef.id
+            modelRef.set(modelData).await()
+            
+            // 2. Upload the image file to Storage
+            val imageRef = FirebaseManager.getImageStorageRef(modelId)
+            val uploadTask = imageRef.putFile(android.net.Uri.fromFile(imageFile)).await()
+            val imageUrl = uploadTask.storage.downloadUrl.await().toString()
+            
+            // 3. Update the model document with the image URL
+            val updates = hashMapOf<String, Any>(
+                "originalImageUrl" to imageUrl,
+                "updatedAt" to com.google.firebase.Timestamp.now()
+            )
+            
+            modelRef.update(updates).await()
+            
+            // 4. Return the created model
+            return getModelById(modelId)
+        } catch (e: Exception) {
+            return null
+        }
     }
     
     /**
-     * Delete a model.
-     * @param modelId The ID of the model to delete
+     * Convert a Firestore document to a Model3D object
      */
-    suspend fun deleteModel(modelId: String) {
-        modelsCollection.document(modelId).delete().await()
+    private fun DocumentSnapshot.toModel(): Model3D? {
+        val model = toObject<Model3D>()
+        model?.let {
+            // Add document ID as model ID if needed
+            return it.copy(id = id)
+        }
+        return model
     }
 }

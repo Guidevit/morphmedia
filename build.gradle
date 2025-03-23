@@ -1,12 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    id 'com.android.application' version '8.1.1' apply false
-    id 'com.android.library' version '8.1.1' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
-    id 'com.google.gms.google-services' version '4.4.0' apply false
-    id 'androidx.navigation.safeargs.kotlin' version '2.7.5' apply false
-}
-
 buildscript {
     repositories {
         google()
@@ -20,8 +12,25 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.android.application' version '8.1.1' apply false
+    id 'com.android.library' version '8.1.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
+    id 'com.google.gms.google-services' version '4.4.0' apply false
+    id 'androidx.navigation.safeargs.kotlin' version '2.7.5' apply false
+}
+
 // Add a task to accept licenses
 allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        // Add JCenter repository for Rajawali
+        jcenter()
+        // Add GitHub Packages for Rajawali
+        maven { url 'https://jitpack.io' }
+    }
+    
     afterEvaluate {
         project -> if (project.hasProperty('android')) {
             project.android.dexOptions.javaMaxHeapSize = "4g"
@@ -29,10 +38,24 @@ allprojects {
     }
 }
 
+// Automatically accept SDK licenses
 tasks.register('acceptLicenses') {
     doLast {
-        def licenseDir = new File("$rootDir/android-sdk-licenses")
-        licenseDir.mkdirs()
-        new File(licenseDir, "android-sdk-license").text = "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee"
+        // Create the licenses directory
+        def sdkDir = System.getenv("ANDROID_SDK_ROOT") ?: System.getenv("ANDROID_HOME") ?: "/nix/store/android-sdk"
+        def licensesDir = new File(sdkDir, "licenses")
+        licensesDir.mkdirs()
+        
+        // Accept all licenses
+        new File(licensesDir, "android-sdk-license").text = "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee"
+        new File(licensesDir, "android-sdk-preview-license").text = "84831b9409646a918e30573bab4c9c91346d8abd"
+        new File(licensesDir, "google-gdk-license").text = "33b6a2b64607f11b759f320ef9dff4ae5c47d97a"
+    }
+}
+
+// Run the acceptLicenses task before any build tasks
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith('compile') || task.name.startsWith('assemble')) {
+        task.dependsOn 'acceptLicenses'
     }
 }

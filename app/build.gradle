@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace 'com.example.lhm3d'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.lhm3d"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -24,6 +24,9 @@ android {
     aaptOptions {
         noCompress "tflite"
     }
+    
+    // Remove deprecated dexOptions warning
+    project.gradle.startParameter.showStacktrace = org.gradle.api.logging.configuration.ShowStacktrace.ALWAYS
 
     buildTypes {
         release {
@@ -76,7 +79,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     
     // OpenGL for 3D rendering
-    implementation 'org.rajawali3d:rajawali:1.2.1984'
+    implementation 'org.rajawali3d:rajawali:1.1.970'
     
     // ML Kit for image processing
     implementation 'com.google.mlkit:image-labeling:17.0.7'

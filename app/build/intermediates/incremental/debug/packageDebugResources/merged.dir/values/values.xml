@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#FFFAFAFA</color>
+    <color name="black">#FF000000</color>
+    <color name="error">#FFB00020</color>
+    <color name="on_background">#FF000000</color>
+    <color name="on_error">#FFFFFFFF</color>
+    <color name="on_primary">#FFFFFFFF</color>
+    <color name="on_secondary">#FF000000</color>
+    <color name="on_surface">#FF000000</color>
+    <color name="primary">#FF6200EE</color>
+    <color name="primary_variant">#FF3700B3</color>
+    <color name="secondary">#FF03DAC5</color>
+    <color name="secondary_variant">#FF018786</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="action_search">Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">LHM 3D</string>
+    <string name="card_create_desc">Transform your photos into 3D models</string>
+    <string name="card_create_title">Create New Model</string>
+    <string name="card_gallery_desc">Explore models created by others</string>
+    <string name="card_gallery_title">Public Gallery</string>
+    <string name="card_models_desc">View and manage your 3D models</string>
+    <string name="card_models_title">My Models</string>
+    <string name="create_description">Description</string>
+    <string name="create_name">Model Name</string>
+    <string name="create_public">Make Public</string>
+    <string name="create_submit">Create Model</string>
+    <string name="create_take_photo">Take Photo</string>
+    <string name="create_title">Create a 3D Model</string>
+    <string name="create_upload">Upload Image</string>
+    <string name="default_web_client_id" translatable="false">123456789012-abcdefghijklmnopqrstuvwxyz654321.apps.googleusercontent.com</string>
+    <string name="error_generic">Something went wrong</string>
+    <string name="error_network">Network error. Please try again</string>
+    <string name="gcm_defaultSenderId" translatable="false">123456789012</string>
+    <string name="google_api_key" translatable="false">AIzaSyABcDeFgHiJkLmNoPqRsTuVwXyZ1234567</string>
+    <string name="google_app_id" translatable="false">1:123456789012:android:abcdef1234567890</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyABcDeFgHiJkLmNoPqRsTuVwXyZ1234567</string>
+    <string name="google_storage_bucket" translatable="false">lhm-3d-creator.appspot.com</string>
+    <string name="home_subtitle">Create, animate, and share 3D models</string>
+    <string name="home_title">Welcome to LHM 3D</string>
+    <string name="loading">Loading…</string>
+    <string name="nav_create">Create</string>
+    <string name="nav_gallery">Gallery</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_models">My Models</string>
+    <string name="nav_profile">Profile</string>
+    <string name="profile_login">Login</string>
+    <string name="profile_logout">Logout</string>
+    <string name="profile_models_count">Models Created</string>
+    <string name="profile_premium">Upgrade to Premium</string>
+    <string name="profile_title">My Profile</string>
+    <string name="project_id" translatable="false">lhm-3d-creator</string>
+    <string name="viewer_animate">Animate</string>
+    <string name="viewer_download">Download</string>
+    <string name="viewer_share">Share</string>
+    <string name="viewer_texture">Change Texture</string>
+    <string name="viewer_title">3D Model Viewer</string>
+    <style name="Theme.LHM3D" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+</resources>
