@@ -128,4 +128,11 @@ class ModelRepository(private val context: Context) {
             emit(false)
         }
     }.flowOn(Dispatchers.IO)
+    
+    /**
+     * Get most recent models, limited by count
+     */
+    suspend fun getRecentModels(limit: Int): List<Model3D> {
+        return firebaseManager.getUserModels().sortedByDescending { it.creationDate }.take(limit)
+    }
 }

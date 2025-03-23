@@ -13,9 +13,12 @@
 /home/runner/workspace/app/build/generated/source/navigation-args/debug/com/example/lhm3d/ui/models/ModelDetailsFragmentArgs.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/viewmodel/HomeViewModel.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/data/model/Model3D.kt
+/home/runner/workspace/app/src/main/java/com/example/lhm3d/ui/tutorial/TutorialFragment.kt
+/home/runner/workspace/app/src/main/java/com/example/lhm3d/viewmodel/ViewModelFactory.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/ui/gallery/GalleryViewModel.kt
 /home/runner/workspace/app/build/generated/source/navigation-args/debug/com/example/lhm3d/ui/home/HomeFragmentDirections.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/service/FirebaseService.kt
+/home/runner/workspace/app/build/generated/source/navigation-args/debug/com/example/lhm3d/ui/preview/PreviewFragmentArgs.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/repository/UserRepository.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/repository/ModelsRepository.kt
 /home/runner/workspace/app/build/generated/source/navigation-args/debug/com/example/lhm3d/ui/animation/AnimationFragmentArgs.kt
@@ -35,6 +38,7 @@
 /home/runner/workspace/app/build/generated/source/navigation-args/debug/com/example/lhm3d/ui/create/CreateFragmentDirections.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/ui/model/ModelAdapter.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/model/User.kt
+/home/runner/workspace/app/build/generated/source/navigation-args/debug/com/example/lhm3d/ui/preview/PreviewFragmentDirections.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/service/ModelService.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/MainActivity.kt
 /home/runner/workspace/app/src/main/java/com/example/lhm3d/ui/preview/PreviewFragment.kt

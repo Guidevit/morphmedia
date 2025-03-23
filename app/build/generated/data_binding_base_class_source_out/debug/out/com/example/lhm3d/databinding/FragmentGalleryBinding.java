@@ -15,6 +15,7 @@ import androidx.viewbinding.ViewBindings;
 import com.example.lhm3d.R;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.tabs.TabLayout;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -45,12 +46,15 @@ public final class FragmentGalleryBinding implements ViewBinding {
   public final RecyclerView modelsRecycler;
 
   @NonNull
+  public final TabLayout tabLayout;
+
+  @NonNull
   public final TextView title;
 
   private FragmentGalleryBinding(@NonNull ConstraintLayout rootView, @NonNull TextView emptyText,
       @NonNull Chip filterAll, @NonNull Chip filterFavorites, @NonNull ChipGroup filterGroup,
       @NonNull Chip filterRecent, @NonNull ProgressBar loadingIndicator,
-      @NonNull RecyclerView modelsRecycler, @NonNull TextView title) {
+      @NonNull RecyclerView modelsRecycler, @NonNull TabLayout tabLayout, @NonNull TextView title) {
     this.rootView = rootView;
     this.emptyText = emptyText;
     this.filterAll = filterAll;
@@ -59,6 +63,7 @@ public final class FragmentGalleryBinding implements ViewBinding {
     this.filterRecent = filterRecent;
     this.loadingIndicator = loadingIndicator;
     this.modelsRecycler = modelsRecycler;
+    this.tabLayout = tabLayout;
     this.title = title;
   }
 
@@ -131,6 +136,12 @@ public final class FragmentGalleryBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tab_layout;
+      TabLayout tabLayout = ViewBindings.findChildViewById(rootView, id);
+      if (tabLayout == null) {
+        break missingId;
+      }
+
       id = R.id.title;
       TextView title = ViewBindings.findChildViewById(rootView, id);
       if (title == null) {
@@ -138,7 +149,8 @@ public final class FragmentGalleryBinding implements ViewBinding {
       }
 
       return new FragmentGalleryBinding((ConstraintLayout) rootView, emptyText, filterAll,
-          filterFavorites, filterGroup, filterRecent, loadingIndicator, modelsRecycler, title);
+          filterFavorites, filterGroup, filterRecent, loadingIndicator, modelsRecycler, tabLayout,
+          title);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -37,12 +37,15 @@ class GalleryFragment : Fragment() {
     }
     
     private fun setupTabs() {
-        binding.tabLayout.apply {
-            addTab(this.newTab().setText(R.string.my_models))
-            addTab(this.newTab().setText(R.string.community_models))
-        }
+        val tabLayout = binding.tabLayout
         
-        binding.tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
+        // Add "My Models" tab
+        tabLayout.addTab(tabLayout.newTab().setText("My Models"))
+        
+        // Add "Community Models" tab
+        tabLayout.addTab(tabLayout.newTab().setText("Community Models"))
+        
+        tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> viewModel.showMyModels()
@@ -58,17 +61,18 @@ class GalleryFragment : Fragment() {
     
     private fun setupRecyclerView() {
         // Setup RecyclerView adapter for models
+        // Will be implemented in future with proper ModelAdapter
     }
     
     private fun observeViewModel() {
         viewModel.models.observe(viewLifecycleOwner) { models ->
             // Update RecyclerView with models
             if (models.isEmpty()) {
-                binding.emptyStateView.visibility = View.VISIBLE
-                binding.recyclerView.visibility = View.GONE
+                binding.emptyText.visibility = View.VISIBLE
+                binding.modelsRecycler.visibility = View.GONE
             } else {
-                binding.emptyStateView.visibility = View.GONE
-                binding.recyclerView.visibility = View.VISIBLE
+                binding.emptyText.visibility = View.GONE
+                binding.modelsRecycler.visibility = View.VISIBLE
                 // Update adapter with models
             }
         }

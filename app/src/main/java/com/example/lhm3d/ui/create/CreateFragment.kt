@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.lhm3d.R
 import com.example.lhm3d.databinding.FragmentCreateBinding
@@ -84,7 +85,14 @@ class CreateFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(CreateViewModel::class.java)
+        // Create a ViewModel factory to pass the context
+        val factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return CreateViewModel(requireContext()) as T
+            }
+        }
+        
+        viewModel = ViewModelProvider(this, factory).get(CreateViewModel::class.java)
 
         _binding = FragmentCreateBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -247,7 +255,9 @@ class CreateFragment : Fragment() {
         
         // Submit to view model
         selectedImageFile?.let { file ->
-            viewModel.createModel(name, description, file, isPublic)
+            // Convert File to Uri
+            val imageUri = Uri.fromFile(file)
+            viewModel.createModel(name, description, imageUri, isPublic)
         }
     }
     

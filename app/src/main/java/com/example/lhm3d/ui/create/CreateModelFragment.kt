@@ -8,8 +8,10 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.lhm3d.R
@@ -30,7 +32,8 @@ class CreateModelFragment : Fragment() {
                 selectedImageUri = uri
                 binding.imagePreview.setImageURI(uri)
                 binding.imagePreview.visibility = View.VISIBLE
-                binding.generateButton.isEnabled = true
+                binding.textNoImage.visibility = View.GONE
+                binding.buttonGenerate.isEnabled = true
             }
         }
     }
@@ -47,28 +50,45 @@ class CreateModelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        viewModel = ViewModelProvider(this)[CreateViewModel::class.java]
+        // Create a ViewModel factory to pass the context
+        val factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return CreateViewModel(requireContext()) as T
+            }
+        }
+        
+        viewModel = ViewModelProvider(this, factory)[CreateViewModel::class.java]
         
         setupUI()
         observeViewModel()
     }
     
     private fun setupUI() {
-        binding.uploadButton.setOnClickListener {
+        binding.buttonUploadImage.setOnClickListener {
             openGallery()
         }
         
-        binding.cameraButton.setOnClickListener {
+        binding.buttonTakePhoto.setOnClickListener {
             // Open camera - would need to implement camera functionality
             // For simplicity, we're just using gallery for now
             openGallery()
         }
         
-        binding.generateButton.setOnClickListener {
+        binding.buttonGenerate.setOnClickListener {
             selectedImageUri?.let { uri ->
-                viewModel.generateModel(uri.toString())
+                // Use the Create method from CreateViewModel
+                val name = "New 3D Model" // In a real app, this would be from user input
+                val description = "Created from image" // In a real app, this would be from user input
+                val isPublic = true // In a real app, this would be from user input
+                
+                viewModel.createModel(name, description, uri, isPublic)
                 showProcessingState()
             }
+        }
+        
+        // Set up detail level slider listener
+        binding.sliderDetailLevel.addOnChangeListener { _, value, _ ->
+            binding.textDetailLevel.text = "Detail Level: ${value.toInt()}"
         }
     }
     
@@ -78,27 +98,42 @@ class CreateModelFragment : Fragment() {
     }
     
     private fun showProcessingState() {
-        binding.uploadContainer.visibility = View.GONE
-        binding.processingContainer.visibility = View.VISIBLE
+        // Show progress indicator
+        binding.progressIndicator.visibility = View.VISIBLE
+        binding.textProcessing.visibility = View.VISIBLE
+        binding.buttonGenerate.isEnabled = false
     }
     
     private fun observeViewModel() {
-        viewModel.modelGenerationState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is ModelGenerationState.Processing -> {
-                    binding.progressBar.progress = state.progress
-                }
-                is ModelGenerationState.Success -> {
-                    // Navigate to model viewer with the new model ID
-                    val action = CreateModelFragmentDirections.actionCreateToModelViewer(state.modelId)
-                    findNavController().navigate(action)
-                }
-                is ModelGenerationState.Error -> {
+        // Handle loading state
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.textProcessing.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.buttonGenerate.isEnabled = !isLoading
+        }
+        
+        // Handle creation result
+        viewModel.createResult.observe(viewLifecycleOwner) { result ->
+            result.fold(
+                onSuccess = { modelId ->
+                    // Navigate to model details with the new model ID
+                    Toast.makeText(requireContext(), "Model created successfully!", Toast.LENGTH_SHORT).show()
+                    try {
+                        val action = CreateModelFragmentDirections.actionCreateToModelDetails(modelId)
+                        findNavController().navigate(action)
+                    } catch (e: Exception) {
+                        // Fallback navigation if action doesn't exist
+                        Toast.makeText(requireContext(), "Model created with ID: $modelId", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                onFailure = { error ->
                     // Show error message and reset UI
-                    binding.uploadContainer.visibility = View.VISIBLE
-                    binding.processingContainer.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+                    binding.progressIndicator.visibility = View.GONE
+                    binding.textProcessing.visibility = View.GONE
+                    binding.buttonGenerate.isEnabled = true
                 }
-            }
+            )
         }
     }
 

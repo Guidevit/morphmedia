@@ -43,16 +43,18 @@ class ModelAdapter(private val onItemClick: (String) -> Unit) :
             
             // Set status text and color based on processing status
             val statusText = when (model.status) {
-                ProcessingStatus.PENDING -> itemView.context.getString(R.string.model_processing)
-                ProcessingStatus.PROCESSING -> itemView.context.getString(R.string.model_processing)
+                ProcessingStatus.UPLOADING -> "Uploading..."
+                ProcessingStatus.QUEUED -> "Queued for processing..."
+                ProcessingStatus.PROCESSING -> "Processing..."
                 ProcessingStatus.COMPLETED -> "Ready"
                 ProcessingStatus.FAILED -> "Failed"
+                ProcessingStatus.CANCELLED -> "Cancelled"
             }
             statusTextView.text = statusText
             
             // Format the date
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-            dateTextView.text = dateFormat.format(model.createdAt)
+            dateTextView.text = dateFormat.format(model.creationDate)
             
             // Load thumbnail image
             if (model.thumbnailUrl.isNotEmpty()) {
@@ -61,10 +63,10 @@ class ModelAdapter(private val onItemClick: (String) -> Unit) :
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.drawable.ic_launcher_foreground)
                     .into(imageView)
-            } else if (model.imageUrl.isNotEmpty()) {
+            } else if (model.sourceImageUrl.isNotEmpty()) {
                 // If no thumbnail, use the source image
                 Glide.with(itemView.context)
-                    .load(model.imageUrl)
+                    .load(model.sourceImageUrl)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.drawable.ic_launcher_foreground)
                     .into(imageView)

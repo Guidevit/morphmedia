@@ -28,7 +28,8 @@ class PreviewFragment : Fragment() {
     private val binding get() = _binding!!
     
     private val viewModel: PreviewViewModel by viewModels()
-    private val args: PreviewFragmentArgs by navArgs()
+    // Use arguments bundle instead of safeargs
+    private val arguments: Bundle by lazy { requireArguments() }
     
     private var renderer: GLSurfaceRenderer? = null
 
@@ -75,13 +76,15 @@ class PreviewFragment : Fragment() {
      * Process the fragment arguments.
      */
     private fun processArgs() {
-        args.imageUri?.let { uriString ->
+        val imageUriString = arguments.getString("imageUri")
+        if (imageUriString != null) {
             // We have an image URI to process
             showProcessingUI()
-            viewModel.processImage(Uri.parse(uriString))
+            viewModel.processImage(Uri.parse(imageUriString))
         }
         
-        args.modelId?.let { modelId ->
+        val modelId = arguments.getString("modelId")
+        if (modelId != null) {
             // We have a model ID to load
             showProcessingUI()
             viewModel.loadModel(modelId)
@@ -185,8 +188,10 @@ class PreviewFragment : Fragment() {
      * Navigate to the animation screen.
      */
     private fun navigateToAnimation(modelId: String) {
-        val action = PreviewFragmentDirections.actionPreviewToAnimation(modelId)
-        findNavController().navigate(action)
+        val bundle = Bundle().apply {
+            putString("modelId", modelId)
+        }
+        findNavController().navigate(R.id.navigation_animation, bundle)
     }
 
     override fun onResume() {

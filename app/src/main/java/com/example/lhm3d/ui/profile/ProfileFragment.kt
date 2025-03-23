@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.chip.Chip
+import com.google.android.material.button.MaterialButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.lhm3d.LoginActivity
@@ -26,6 +29,9 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     
     private val viewModel: UserViewModel by viewModels()
+    
+    // Store the fragment view reference
+    private var fragmentView: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +45,10 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        setupClickListeners()
+        // Store the view reference
+        fragmentView = view
+        
+        setupClickListeners(view)
         observeViewModel()
         
         // Load user data
@@ -49,14 +58,16 @@ class ProfileFragment : Fragment() {
     /**
      * Set up click listeners for buttons.
      */
-    private fun setupClickListeners() {
+    private fun setupClickListeners(view: View) {
         // Upgrade button
-        binding.upgradeButton.setOnClickListener {
+        val upgradeButton = view.findViewById<MaterialButton>(R.id.upgrade_button)
+        upgradeButton?.setOnClickListener {
             showPremiumOptions()
         }
         
         // Logout button
-        binding.logoutButton.setOnClickListener {
+        val logoutButton = view.findViewById<TextView>(R.id.logout_button)
+        logoutButton?.setOnClickListener {
             viewModel.signOut()
             navigateToLogin()
         }
@@ -112,21 +123,25 @@ class ProfileFragment : Fragment() {
         binding.profileEmail.text = user.email
         
         // Update subscription info
+        val subscriptionChip = fragmentView?.findViewById<Chip>(R.id.subscription_chip)
+        val subscriptionDetails = fragmentView?.findViewById<TextView>(R.id.subscription_details)
+        val upgradeButton = fragmentView?.findViewById<MaterialButton>(R.id.upgrade_button)
+        
         when (user.subscription) {
             SubscriptionType.FREE_TRIAL -> {
-                binding.subscriptionChip.text = getString(R.string.free_trial)
-                binding.subscriptionDetails.text = "Remaining credits: ${user.remainingCredits}/5"
-                binding.upgradeButton.visibility = View.VISIBLE
+                subscriptionChip?.text = getString(R.string.free_trial)
+                subscriptionDetails?.text = "Remaining credits: ${user.remainingCredits}/5"
+                upgradeButton?.visibility = View.VISIBLE
             }
             SubscriptionType.PREMIUM_MONTHLY -> {
-                binding.subscriptionChip.text = "Premium Monthly"
-                binding.subscriptionDetails.text = "Unlimited credits"
-                binding.upgradeButton.visibility = View.GONE
+                subscriptionChip?.text = "Premium Monthly"
+                subscriptionDetails?.text = "Unlimited credits"
+                upgradeButton?.visibility = View.GONE
             }
             SubscriptionType.PREMIUM_YEARLY -> {
-                binding.subscriptionChip.text = "Premium Yearly"
-                binding.subscriptionDetails.text = "Unlimited credits"
-                binding.upgradeButton.visibility = View.GONE
+                subscriptionChip?.text = "Premium Yearly"
+                subscriptionDetails?.text = "Unlimited credits"
+                upgradeButton?.visibility = View.GONE
             }
         }
         
@@ -159,5 +174,6 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        fragmentView = null
     }
 }

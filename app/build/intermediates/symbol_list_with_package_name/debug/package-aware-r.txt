@@ -3284,7 +3284,10 @@ id action_gallery_to_animation
 id action_gallery_to_model_details
 id action_home_to_animation
 id action_home_to_create
+id action_home_to_gallery
+id action_home_to_modelView
 id action_home_to_model_details
+id action_home_to_tutorial
 id action_image
 id action_login_to_home
 id action_login_to_signup
@@ -3294,6 +3297,7 @@ id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
 id action_models_to_model_details
+id action_preview_to_animation
 id action_profile_to_edit_profile
 id action_signup_to_home
 id action_signup_to_login
@@ -3341,6 +3345,7 @@ id buttonApply
 id buttonPanel
 id buttonRetry
 id buttonSave
+id button_back
 id button_generate
 id button_take_photo
 id button_upload_image
@@ -3619,7 +3624,9 @@ id navigation_gallery
 id navigation_header_container
 id navigation_home
 id navigation_models
+id navigation_preview
 id navigation_profile
+id navigation_tutorial
 id never
 id neverCompleteToEnd
 id neverCompleteToStart
@@ -3775,6 +3782,7 @@ id subscription_title
 id subtitle
 id supportScrollUp
 id tabMode
+id tab_layout
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
 id tag_accessibility_heading
@@ -3800,6 +3808,16 @@ id textViewAnimationName
 id textViewError
 id textViewModelReady
 id textViewProcessing
+id textView_step1_description
+id textView_step1_title
+id textView_step2_description
+id textView_step2_title
+id textView_step3_description
+id textView_step3_title
+id textView_step4_description
+id textView_step4_title
+id textView_tutorial_description
+id textView_tutorial_title
 id textWatcher
 id text_detail_level
 id text_input_end_icon
@@ -4008,6 +4026,7 @@ layout fragment_gallery
 layout fragment_home
 layout fragment_preview
 layout fragment_profile
+layout fragment_tutorial
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_animation

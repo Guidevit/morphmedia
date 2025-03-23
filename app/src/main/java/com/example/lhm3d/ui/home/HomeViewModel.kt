@@ -1,5 +1,6 @@
 package com.example.lhm3d.ui.home
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,9 +12,9 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel for the Home screen
  */
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val context: Context) : ViewModel() {
     
-    private val modelRepository = ModelRepository()
+    private val modelRepository = ModelRepository(context)
     
     // LiveData for UI states
     private val _isLoading = MutableLiveData<Boolean>()

@@ -16,6 +16,15 @@
         <action
             android:id="@+id/action_home_to_animation"
             app:destination="@id/navigation_animation" />
+        <action
+            android:id="@+id/action_home_to_modelView"
+            app:destination="@id/navigation_animation" />
+        <action
+            android:id="@+id/action_home_to_gallery"
+            app:destination="@id/navigation_gallery" />
+        <action
+            android:id="@+id/action_home_to_tutorial"
+            app:destination="@id/navigation_tutorial" />
     </fragment>
 
     <fragment
@@ -52,6 +61,30 @@
         <argument
             android:name="modelId"
             app:argType="string" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/navigation_tutorial"
+        android:name="com.example.lhm3d.ui.tutorial.TutorialFragment"
+        android:label="Tutorial"
+        tools:layout="@layout/fragment_tutorial" />
+        
+    <fragment
+        android:id="@+id/navigation_preview"
+        android:name="com.example.lhm3d.ui.preview.PreviewFragment"
+        android:label="Preview"
+        tools:layout="@layout/fragment_preview">
+        <argument
+            android:name="imageUri"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="modelId"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_preview_to_animation"
+            app:destination="@id/navigation_animation" />
     </fragment>
 
 </navigation>

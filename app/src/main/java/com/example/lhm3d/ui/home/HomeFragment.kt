@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lhm3d.R
 import com.example.lhm3d.databinding.FragmentHomeBinding
 import com.example.lhm3d.ui.model.ModelAdapter
+import com.example.lhm3d.viewmodel.ViewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -25,7 +27,9 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        // Create the ViewModel with context
+        val factory = ViewModelFactory(requireContext())
+        viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -43,45 +47,43 @@ class HomeFragment : Fragment() {
         // Set up RecyclerView
         modelAdapter = ModelAdapter { modelId ->
             // Navigate to model view
-            val action = HomeFragmentDirections.actionHomeToModelView(modelId)
-            findNavController().navigate(action)
+            val bundle = Bundle().apply {
+                putString("modelId", modelId)
+            }
+            findNavController().navigate(R.id.action_home_to_modelView, bundle)
         }
         
-        binding.recyclerViewRecentModels.apply {
-            layoutManager = LinearLayoutManager(context)
+        binding.recentModelsRecycler.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = modelAdapter
         }
         
-        // Set up buttons
-        binding.buttonCreateNew.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_create)
-        }
-        
-        binding.buttonViewGallery.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_gallery)
+        // Set up tutorial button
+        binding.tutorialButton.setOnClickListener {
+            // Navigate to tutorial
+            findNavController().navigate(R.id.action_home_to_tutorial)
         }
     }
     
     private fun observeViewModel() {
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.loadingIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
         
         viewModel.recentModels.observe(viewLifecycleOwner) { models ->
             if (models.isEmpty()) {
-                binding.textNoModels.visibility = View.VISIBLE
-                binding.recyclerViewRecentModels.visibility = View.GONE
+                // No need to show empty state, just don't display models
+                binding.recentModelsRecycler.visibility = View.GONE
             } else {
-                binding.textNoModels.visibility = View.GONE
-                binding.recyclerViewRecentModels.visibility = View.VISIBLE
+                binding.recentModelsRecycler.visibility = View.VISIBLE
                 modelAdapter.submitList(models)
             }
         }
         
         viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             if (errorMessage != null) {
-                binding.textNoModels.text = getString(R.string.error_generic)
-                binding.textNoModels.visibility = View.VISIBLE
+                // Show error toast
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
     }
